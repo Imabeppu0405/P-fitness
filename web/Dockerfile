@@ -15,4 +15,4 @@ RUN a2ensite vhost.conf
 
 COPY ./php.ini /usr/local/etc/php/
 
-WORKDIR /var/www/html
+WORKDIR /var/www/work

@@ -19,7 +19,7 @@ services:
       - "8080:80"
     restart: always
     volumes:
-      - ./html:/var/www/html
+      - ./work:/var/www/work
     depends_on:
       - db
     environment:
