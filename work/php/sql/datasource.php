@@ -1,5 +1,5 @@
 <?php 
-function create_table() {
+function db_connection() {
   $host = "localhost";
   $port = "8080";
   $db_database = "fitnessdb";

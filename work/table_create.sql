@@ -1,5 +1,6 @@
 CREATE TABLE user (
-  user_id VARCHAR(255) NOT NULL PRIMARY KEY,
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  user_name VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   nickname VARCHAR(20) NOT NULL,
   exp INT default 0,
@@ -12,7 +13,7 @@ CREATE TABLE task (
   name VARCHAR(50) NOT NULL,
   description VARCHAR(255) NOT NULL,
   level INT NOT NULL,
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
   complete_flag BOOLEAN NOT NULL default false,
   created_at TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
 ) DEFAULT CHARSET UTF8 COMMENT 'taskTable';
@@ -21,18 +22,18 @@ CREATE TABLE reward (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   price INT NOT NULL,
-  user_id VARCHAR(255) NOT NULL,
+  user_id INT NOT NULL,
   created_at TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
 ) DEFAULT CHARSET UTF8 COMMENT 'rewardTable';
 
 # テストデータ挿入
-INSERT INTO user (user_id, password, nickname) VALUES (
+INSERT INTO user (user_name, password, nickname) VALUES (
   'd.imabeppu', 'test', 'beppu'
 );
 INSERT INTO task (name, description, level, user_id) VALUES (
-  '腹筋10回', 'これはテストタスクです.', 1, 'd.imabeppu'
+  '腹筋10回', 'これはテストタスクです.', 1, 1
 );
 
 INSERT INTO reward (name, price, user_id) VALUES (
-  'アイス', 10, 'd.imabeppu'
+  'アイス', 10, 1
 );
