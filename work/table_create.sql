@@ -26,6 +26,11 @@ CREATE TABLE reward (
   created_at TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
 ) DEFAULT CHARSET UTF8 COMMENT 'rewardTable';
 
+ALTER TABLE task ADD FOREIGN KEY fk_user_id(user_id) REFERENCES user(id);
+
+ALTER TABLE reward ADD FOREIGN KEY fk_user_id(user_id) REFERENCES user(id);
+
+
 # テストデータ挿入
 INSERT INTO user (user_name, password, nickname) VALUES (
   'd.imabeppu', 'test', 'beppu'
