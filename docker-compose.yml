@@ -1,0 +1,29 @@
+version: "3"
+services:
+  db:
+    build: ./db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/database:/var/lib/mysql
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: d.imabeppu0405
+      MYSQL_DATABASE: fitnessdb
+      MYSQL_USER: d.imabeppu
+      MYSQL_PASSWORD: fitness
+    #   MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - ./work:/var/www/work
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: d.imabeppu
+      DB_PASSWORD: fitness
