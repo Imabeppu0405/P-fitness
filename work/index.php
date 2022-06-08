@@ -5,8 +5,8 @@ define('PORT', '3306');
 define('DATABASE', 'fitnessdb');
 define('USERNAME', 'd.imabeppu');
 define('PASSWORD', 'fitness');
-require_once '../partials/header.php';
-require_once '../partials/footer.php';
+require_once __DIR__ . '/php/partials/header.php';
+require_once __DIR__ . '/php/partials/footer.php';
 
 \partials\header();
 
