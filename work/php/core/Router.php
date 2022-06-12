@@ -11,20 +11,16 @@ class Router
   {
     $this->request = $request;
   }
-  public function get($path, $callback)
-  {
-    $this->routes['get'][$path] = $callback;
-  }
-
+  
   public function resolve()
   {
     $path = $this->request->getPath();
     $method = $this->request->getMethod();
-    $callback = $this->routes[$method][$path] ?? false;
-    if ($callback === false) {
-      echo 'Not found';
-      exit;
-    }
-    echo call_user_func($callback);
+
+    $targetFile = SOURCE_BASE . "controllers{$path}.php";
+    require_once($targetFile);
+    $targetname = str_replace('/', '\\', $path);
+    $fn = "\\controller{$targetname}\\{$method}";
+    $fn();
   }
 }
