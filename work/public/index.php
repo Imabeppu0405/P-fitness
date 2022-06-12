@@ -6,6 +6,7 @@ require_once '../config.php';
 require_once SOURCE_BASE . 'core/Application.php';
 require_once SOURCE_BASE . 'core/Request.php';
 require_once SOURCE_BASE . 'core/Router.php';
+require_once SOURCE_BASE . 'core/Helper.php';
 
 // partial
 require_once SOURCE_BASE . 'partials/header.php';
