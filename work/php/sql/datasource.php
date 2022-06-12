@@ -9,7 +9,7 @@ class DataSource {
   private $result;
   public const CLS = 'cls';
   
-  public function __construct($host = 'db', $port = '3306', $dbName = 'fitnesdb', $username = 'd.imabeppu', $password = 'fitness')
+  public function __construct($host = 'db', $port = '3306', $dbName = 'fitnessdb', $username = 'd.imabeppu', $password = 'fitness')
   {
     $dsn = "mysql:host={$host};port={$port};dbname={$dbName};";
     $this->conn = new PDO($dsn, $username, $password);

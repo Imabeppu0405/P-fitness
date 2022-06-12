@@ -7,6 +7,14 @@ require_once SOURCE_BASE . 'core/Application.php';
 require_once SOURCE_BASE . 'core/Request.php';
 require_once SOURCE_BASE . 'core/Router.php';
 require_once SOURCE_BASE . 'core/Helper.php';
+require_once SOURCE_BASE . 'core/Auth.php';
+
+// models
+require_once SOURCE_BASE . 'models/user.model.php';
+
+// sql
+require_once SOURCE_BASE . 'sql/datasource.php';
+require_once SOURCE_BASE . 'sql/user.query.php';
 
 // partial
 require_once SOURCE_BASE . 'partials/header.php';
