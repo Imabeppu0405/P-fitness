@@ -32,4 +32,24 @@ class Auth
 
     return $is_success;
   }
+
+  public static function regist($user)
+  {
+    try {
+      # TODO: 形式チェック
+
+      $is_success = false;
+
+      # TODO: 存在チェック
+
+      $is_success = UserQuery::insert($user);
+
+    } catch (Throwable $e) {
+
+      $is_success = true;
+      echo $e;
+    }
+
+    return $is_success;
+  }
 }

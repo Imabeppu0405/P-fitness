@@ -23,6 +23,7 @@ require_once SOURCE_BASE . 'partials/footer.php';
 // views
 require_once SOURCE_BASE . 'views/home.php';
 require_once SOURCE_BASE . 'views/signin.php';
+require_once SOURCE_BASE . 'views/signup.php';
 
 use app\core\Application;
 
