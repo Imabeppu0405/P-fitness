@@ -8,6 +8,7 @@ require_once SOURCE_BASE . 'core/Request.php';
 require_once SOURCE_BASE . 'core/Router.php';
 require_once SOURCE_BASE . 'core/Helper.php';
 require_once SOURCE_BASE . 'core/Auth.php';
+require_once SOURCE_BASE . 'core/Message.php';
 
 // models
 require_once SOURCE_BASE . 'models/user.model.php';

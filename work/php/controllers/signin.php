@@ -3,6 +3,7 @@
 namespace controller\signin;
 
 use app\core\Auth;
+use app\core\Message\Msg;
 
 function get() {
   \view\signin\index();
@@ -13,8 +14,8 @@ function post() {
   $password = get_param('password', '');
 
   if(Auth::login($user_id, $password)) {
-    echo 'ログイン成功';
+    Msg::push(Msg::INFO, 'ログイン成功');
   } else {
-    echo 'ログイン失敗';
+    Msg::push(Msg::ERROR, 'ログイン失敗');
   }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace partials;
 
+use app\core\Message\Msg;
+
 function header() {
 ?>
   <!DOCTYPE html>
@@ -14,5 +16,6 @@ function header() {
   </head>
   <body>
 <?php
+Msg::flush(); 
 }
 ?>

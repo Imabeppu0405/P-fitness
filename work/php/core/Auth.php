@@ -2,6 +2,7 @@
 
 namespace app\core;
 
+use app\core\Message\Msg;
 use db\UserQuery;
 use model\UserModel;
 use Throwable;
@@ -12,6 +13,9 @@ class Auth
   {
     try {
       # TODO: 形式チェック
+      if(!(UserModel::validateId($user_id) * UserModel::validatePwd($password))) {
+        return false;
+      }
       $is_success = false;
       
       $user = UserQuery::fetchById($user_id);
@@ -27,7 +31,9 @@ class Auth
       }
 
     } catch (Throwable $e) {
-      echo $e;
+      $is_success = false;
+      Msg::push(Msg::DEBUG, $e->getMessage());
+      Msg::push(Msg::ERROR, 'ログイン処理でエラーが発生しました。');
     }
 
     return $is_success;
@@ -37,6 +43,11 @@ class Auth
   {
     try {
       # TODO: 形式チェック
+      if (!($user->isValidId()
+          * $user->isValidPwd()
+          * $user->isValidNic())) {
+          return false;
+      }
 
       $is_success = false;
 
@@ -46,8 +57,9 @@ class Auth
 
     } catch (Throwable $e) {
 
-      $is_success = true;
-      echo $e;
+      $is_success = false;
+      Msg::push(Msg::DEBUG, $e->getMessage());
+      Msg::push(Msg::ERROR, 'ユーザー登録でエラーが発生しました');
     }
 
     return $is_success;

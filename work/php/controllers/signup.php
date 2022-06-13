@@ -3,6 +3,7 @@ namespace controller\signup;
 
 use model\UserModel;
 use app\core\Auth;
+use app\core\Message\Msg;
 
 function get() {
   \view\signup\index();
@@ -15,8 +16,8 @@ function post() {
   $user->nickname = get_param('nickname', '');
 
   if (Auth::regist($user)) {
-    echo '登録完了';
+    Msg::push(Msg::INFO, '新規登録成功');
   } else {
-    echo '登録失敗';
+    Msg::push(Msg::DEBUG, '新規登録失敗');
   }
 }
