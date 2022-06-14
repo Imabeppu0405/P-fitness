@@ -15,7 +15,9 @@ function post() {
 
   if(Auth::login($user_id, $password)) {
     Msg::push(Msg::INFO, 'ログイン成功');
+    redirect(GO_HOME);
   } else {
     Msg::push(Msg::ERROR, 'ログイン失敗');
+    redirect(GO_REFERER);
   }
 }

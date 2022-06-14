@@ -20,6 +20,7 @@ function index() {
     </div>
     <input type="submit" value="新規登録">
   </form>
+  <a href="<?php the_url('signin') ?>">ログインはこちら</a>
 </div>
 <?php
 }

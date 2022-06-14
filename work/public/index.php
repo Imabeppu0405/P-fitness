@@ -1,4 +1,3 @@
-
 <?php
 require_once '../config.php';
 
@@ -27,6 +26,10 @@ require_once SOURCE_BASE . 'views/signin.php';
 require_once SOURCE_BASE . 'views/signup.php';
 
 use app\core\Application;
+
+session_start();
+ob_start();
+
 
 \partials\header();
 $app = new Application();

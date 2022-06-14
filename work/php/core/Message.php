@@ -22,7 +22,6 @@ class Msg {
   }
 
   private static function getSession() {
-    var_dump($_SESSION);
     return $_SESSION[static::$SESSION_NAME] ?? null;
   }
 
@@ -35,7 +34,7 @@ class Msg {
       return static::getSession();
     } 
     finally {
-      return static::clearSession();
+      static::clearSession();
     }
   }
 
@@ -58,9 +57,11 @@ class Msg {
         if($type === static::DEBUG && !DEBUG) {
           continue;
         }
-        $color = $type === static::INFO ? 'allert-info' : 'alert-danger';
+
+        $color = $type === static::INFO ? 'alert-info' : 'alert-danger';
 
         foreach($msgs as $msg) {
+          
           echo "<div class='alert {$color}'>{$msg}</div>";
         }
       }

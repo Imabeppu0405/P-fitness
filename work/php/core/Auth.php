@@ -45,7 +45,7 @@ class Auth
       # TODO: 形式チェック
       if (!($user->isValidId()
           * $user->isValidPwd()
-          * $user->isValidNic())) {
+          * $user->isValidNick())) {
           return false;
       }
 

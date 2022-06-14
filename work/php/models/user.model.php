@@ -21,7 +21,7 @@ class UserModel {
       Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下で入力してください');
       $res = false;
     }
-
+    
     #TODO: 文字種制
     return $res;
   }
@@ -36,7 +36,7 @@ class UserModel {
     if(empty($val)) {
       Msg::push(Msg::ERROR, 'パスワードを入力してください');
       $res = false;
-    } else if(strlen($val) > 12 && strlen($val) < 6) {
+    } else if(strlen($val) > 12 or strlen($val) < 6) {
       Msg::push(Msg::ERROR, 'パスワードは6~12文字で入力してください');
       $res = false;
     }

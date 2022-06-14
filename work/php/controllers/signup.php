@@ -17,7 +17,9 @@ function post() {
 
   if (Auth::regist($user)) {
     Msg::push(Msg::INFO, '新規登録成功');
+    redirect(GO_HOME);
   } else {
     Msg::push(Msg::DEBUG, '新規登録失敗');
+    redirect(GO_REFERER);
   }
 }
