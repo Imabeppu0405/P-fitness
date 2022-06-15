@@ -19,8 +19,8 @@ class UserModel extends AbstractModel {
     if(empty($val)) {
       Msg::push(Msg::ERROR, 'ユーザ-IDを入力してください');
       $res = false;
-    } else if(strlen($val) > 10) {
-      Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下で入力してください');
+    } else if(!preg_match('/^[a-zA-Z0-9]{1,10}$/', $val)) {
+      Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下の英数字で入力してください');
       $res = false;
     }
 
@@ -38,8 +38,8 @@ class UserModel extends AbstractModel {
     if(empty($val)) {
       Msg::push(Msg::ERROR, 'パスワードを入力してください');
       $res = false;
-    } else if(strlen($val) > 12 or strlen($val) < 6) {
-      Msg::push(Msg::ERROR, 'パスワードは6~12文字で入力してください');
+    } else if(!preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$/', $val)) {
+      Msg::push(Msg::ERROR, 'パスワードは、英数両方を含んだ6~12文字の英数字で入力してください');
       $res = false;
     }
 
@@ -59,8 +59,8 @@ class UserModel extends AbstractModel {
     if(empty($val)) {
       Msg::push(Msg::ERROR, 'ニックネームを入力してください');
       $res = false;
-    } else if(strlen($val) > 10) {
-      Msg::push(Msg::ERROR, 'ニックネームは10文字以下で入力してください');
+    } else if(!preg_match('/^[ぁ-んァ-ヶ-一-龠々]{1,10}$/u', $val)) {
+      Msg::push(Msg::ERROR, 'ニックネームは10文字以下の日本語で入力してください');
       $res = false;
     }
 
