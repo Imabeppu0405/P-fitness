@@ -23,11 +23,12 @@ class Auth
       if(!empty($user)) { 
         if (password_verify($password, $user->password)) {
           $is_success = true;
+          UserModel::setSession($user);
         } else {
-          echo 'パスワードが一致しません';
+          Msg::push(Msg::ERROR, 'パスワードが一致しません');
         }
       } else {
-        echo 'ユーザーが見つかりません';
+        Msg::push(Msg::ERROR, 'ユーザーが見つかりません');
       }
 
     } catch (Throwable $e) {
@@ -54,6 +55,10 @@ class Auth
       # TODO: 存在チェック
 
       $is_success = UserQuery::insert($user);
+
+      if($is_success) {
+        UserModel::setSession($user);
+      }
 
     } catch (Throwable $e) {
 

@@ -4,6 +4,7 @@ namespace controller\signin;
 
 use app\core\Auth;
 use app\core\Message\Msg;
+use model\UserModel;
 
 function get() {
   \view\signin\index();
@@ -14,10 +15,10 @@ function post() {
   $password = get_param('password', '');
 
   if(Auth::login($user_id, $password)) {
-    Msg::push(Msg::INFO, 'ログイン成功');
+    $user = UserModel::getSession();
+    Msg::push(Msg::INFO, "{$user->nickname}さん、ようこそ");
     redirect(GO_HOME);
   } else {
-    Msg::push(Msg::ERROR, 'ログイン失敗');
     redirect(GO_REFERER);
   }
 }

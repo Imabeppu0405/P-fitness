@@ -1,42 +1,16 @@
 <?php
 namespace app\core\Message;
 
-use Error;
+use model\AbstractModel;
 use Throwable;
 
-class Msg {
+class Msg extends AbstractModel {
   public const ERROR = 'error';
   public const INFO = 'info';
   public const DEBUG = 'debug';
 
   # TODO: セッション処理はまとめる
   protected static $SESSION_NAME = '_msg';
-
-  private static function setSession($val) {
-
-    if(empty(static::$SESSION_NAME)) {
-      throw new Error('$SESSION_NAMEを設定してください');
-    }
-
-    $_SESSION[static::$SESSION_NAME] = $val;
-  }
-
-  private static function getSession() {
-    return $_SESSION[static::$SESSION_NAME] ?? null;
-  }
-
-  public static function clearSession() {
-    static::setSession(null);
-  }
-
-  private static function getSessionAndFlush() {
-    try{
-      return static::getSession();
-    } 
-    finally {
-      static::clearSession();
-    }
-  }
 
   public static function push($type, $msg) {
     if(!is_array(static::getSession())) {

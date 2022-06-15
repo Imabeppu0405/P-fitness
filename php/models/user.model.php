@@ -3,12 +3,14 @@ namespace model;
 
 use app\core\Message\Msg;
 
-class UserModel {
+class UserModel extends AbstractModel {
   public string $user_id;
   public string $password;
   public string $nickname;
   public int $exp;
   public int $money;
+
+  protected static $SESSION_NAME = '_user';
 
   #TODO: 形式チェック
   public static function validateId($val)
@@ -21,7 +23,7 @@ class UserModel {
       Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下で入力してください');
       $res = false;
     }
-    
+
     #TODO: 文字種制
     return $res;
   }
