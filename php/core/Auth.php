@@ -69,4 +69,38 @@ class Auth
 
     return $is_success;
   }
+
+  public static function logout() {
+    try {
+
+      UserModel::clearSession();
+
+    } catch (Throwable $e) {
+
+      Msg::push(Msg::DEBUG, $e->getMessage());
+      return false;
+
+    }
+
+    return true;
+  }
+
+  public static function isLogin() {
+    try {
+
+      $user = UserModel::getSession();
+
+    } catch(Throwable $e) {
+
+      Msg::push(Msg::DEBUG, $e->getMessage());
+      return false;
+
+    }
+
+    if(isset($user)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

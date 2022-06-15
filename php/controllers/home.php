@@ -2,6 +2,12 @@
 
 namespace controller\home;
 
+use app\core\Auth;
+
 function get() {
-  \view\home\index();
+  if (Auth::isLogin()) {
+    \view\home\index();
+  } else {
+    redirect('signin');
+  }
 }
