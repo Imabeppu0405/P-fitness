@@ -3,25 +3,29 @@ namespace view\signup;
 
 function index() {
 ?>
-<h1>signupページ</h1>
-<div>
-  <form action="<?php echo CURRENT_URI ?>" method="POST">
-    <div>
-      <label for="user_id">ユーザーID</label>
-      <input id="user_id" name="user_id" type="text">
+<div class="form-cont mx-auto bg-white py-4 mt-5">
+    <div class="text-center">
+      <h2>新規登録</h2>
     </div>
-    <div>
-      <label for="password">パスワード</label>
-      <input id="password" name="password" type="password">
-    </div>
-    <div>
-      <label for="nickname">ニックネーム</label>
-      <input id="nickname" name="nickname" type="text">
-    </div>
-    <input type="submit" value="新規登録">
-  </form>
-  <a href="<?php the_url('signin') ?>">ログインはこちら</a>
-</div>
+    <form class="mt-5" action="<?php echo CURRENT_URI; ?>" method="post">
+      <div class="mb-4 w-75 mx-auto">
+        <label for="user_id" class="form-label">ユーザーID</label>
+        <input type="text" class="form-control"  name="user_id" id="user_id">
+      </div>
+      <div class="mb-4 w-75 mx-auto">
+        <label for="password" class="form-label">パスワード</label>
+        <input type="password" class="form-control" name="password" id="password">
+      </div>
+      <div class="w-75 mx-auto">
+        <label for="nickname" class="form-label">ニックネーム</label>
+        <input type="text" class="form-control" name="nickname" id="nickname">
+      </div>
+      <div class="text-center mt-5">
+        <button type="submit" class="btn btn-primary">新規登録</button>
+        <a href="<?php the_url('signin') ?>" class="d-block mt-3">ログインはこちら</a>
+      </div>
+    </form>
+  </div>
 <?php
 }
 ?>

@@ -6,6 +6,10 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+#container {
+  max-width: 1200px;
+}
 
+.form-cont {
+  width: 500px;
 }

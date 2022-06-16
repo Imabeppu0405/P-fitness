@@ -16,8 +16,9 @@ function header() {
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
+    <div id="container" class="mx-auto">
     <header>
-      <nav class="d-flex align-items-center justify-content-between py-2 px-5">
+      <nav class="d-flex align-items-center justify-content-between py-2 px-2">
           <a class="h2 font-weight-bold" href="<?php the_url('/') ?>">P-fitness</a>
           <div>
             <?php if(Auth::isLogin()): ?>
