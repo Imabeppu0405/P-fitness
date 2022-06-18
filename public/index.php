@@ -11,6 +11,7 @@ require_once SOURCE_BASE . 'core/Auth.php';
 // models
 require_once SOURCE_BASE . 'models/abstract.model.php';
 require_once SOURCE_BASE . 'models/user.model.php';
+require_once SOURCE_BASE . 'models/fitness.model.php';
 
 // message
 require_once SOURCE_BASE . 'core/Message.php';
@@ -18,6 +19,7 @@ require_once SOURCE_BASE . 'core/Message.php';
 // sql
 require_once SOURCE_BASE . 'db/datasource.php';
 require_once SOURCE_BASE . 'db/user.query.php';
+require_once SOURCE_BASE . 'db/fitness.query.php';
 
 // partial
 require_once SOURCE_BASE . 'partials/header.php';

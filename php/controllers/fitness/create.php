@@ -1,5 +1,5 @@
 <?php
-namespace controller\task\create;
+namespace controller\fitness\create;
 
 use app\core\Auth;
 use app\core\Message\Msg;
@@ -37,7 +37,7 @@ function post() {
 
     Msg::push(Msg::ERROR, 'フィットネスの登録に失敗しました。');
     redirect(GO_REFERER);
-    
+
   }
 
   

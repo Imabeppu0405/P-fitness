@@ -3,9 +3,10 @@ namespace db;
 
 class FitnessQuery
 {
-  public static function insert($fitness, $user) {
+  public static function insert($fitness, $user) 
+  {
     $db = new DataSource;
-    $sql = 'insert into fitness(name, description, level) values (:name. :description, :level, :user_id)';
+    $sql = 'insert into fitness(name, description, level, user_id) values (:name, :description, :level, :user_id)';
 
     return $db->execute($sql, [
       ':name'        => $fitness->name,
