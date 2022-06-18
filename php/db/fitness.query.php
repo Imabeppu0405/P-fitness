@@ -1,6 +1,8 @@
 <?php
 namespace db;
 
+use model\FitnessModel;
+
 class FitnessQuery
 {
   public static function insert($fitness, $user) 
@@ -14,5 +16,19 @@ class FitnessQuery
       ':level'       => $fitness->level,
       ':user_id'     => $user->user_id,
     ]);
+  }
+
+  public static function fetchById($user_id)
+  {
+    $db = new DataSource;
+    $sql = '
+    select * from fitness where user_id = :user_id and delete_flag = 0';
+
+    $result = $db->select($sql, [
+      ':user_id' => $user_id
+    ],
+    DataSource::CLS, FitnessModel::class);
+
+    return $result;
   }
 }
