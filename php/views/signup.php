@@ -3,7 +3,7 @@ namespace view\signup;
 
 function index() {
 ?>
-<div class="form-cont mx-auto bg-white py-4 mt-5">
+<div class="form-cont mx-auto bg-white py-4 mt-5 shadow-sm">
     <div class="text-center">
       <h2>新規登録</h2>
     </div>
@@ -11,14 +11,17 @@ function index() {
       <div class="mb-4 w-75 mx-auto">
         <label for="user_id" class="form-label">ユーザーID</label>
         <input type="text" class="form-control"  name="user_id" id="user_id">
+        <div id="id_help" class="form-text">10文字以下の英数字</div>
       </div>
       <div class="mb-4 w-75 mx-auto">
         <label for="password" class="form-label">パスワード</label>
         <input type="password" class="form-control" name="password" id="password">
+        <div id="pwd_help" class="form-text">英数字を含む6~12文字</div>
       </div>
       <div class="w-75 mx-auto">
         <label for="nickname" class="form-label">ニックネーム</label>
         <input type="text" class="form-control" name="nickname" id="nickname">
+        <div id="nick_help" class="form-text">10文字以下の日本語</div>
       </div>
       <div class="text-center mt-5">
         <button type="submit" class="btn btn-primary">新規登録</button>

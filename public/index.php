@@ -16,8 +16,8 @@ require_once SOURCE_BASE . 'models/user.model.php';
 require_once SOURCE_BASE . 'core/Message.php';
 
 // sql
-require_once SOURCE_BASE . 'sql/datasource.php';
-require_once SOURCE_BASE . 'sql/user.query.php';
+require_once SOURCE_BASE . 'db/datasource.php';
+require_once SOURCE_BASE . 'db/user.query.php';
 
 // partial
 require_once SOURCE_BASE . 'partials/header.php';

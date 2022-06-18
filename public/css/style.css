@@ -1,9 +1,14 @@
 body {
   background-color: rgb(220, 239, 247);
+  font-family: 'Mochiy Pop One', sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+
+a::hover {
+  text-decoration: underline;
 }
 
 #container {

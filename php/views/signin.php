@@ -4,7 +4,7 @@ namespace view\signin;
 function index() {
 ?>
 <div>
-  <div class="form-cont mx-auto bg-white py-4 mt-5">
+  <div class="form-cont mx-auto bg-white py-4 mt-5 shadow-sm">
     <div class="text-center">
       <h2>Login</h2>
     </div>
