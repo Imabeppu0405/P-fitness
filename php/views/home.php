@@ -5,7 +5,43 @@ function index($fitnesses) {
 ?>
 <div class="d-flex justify-content-center mt-5">
   <h1>フィットネス一覧</h1>
-  <button type="button" class="btn btn-primary">フィットネス追加</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">フィットネス追加</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/fitness/create" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">フィットネス登録</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        
+          <div class="mb-4 w-75 mx-auto">
+            <label for="name" class="form-label">名前</label>
+            <input type="text" class="form-control" name="name" id="name">
+          </div>
+          <div class="mb-4 w-75 mx-auto">
+            <label for="description" class="form-label">詳細</label>
+            <input type="textarea" class="form-control" name="description" id="description">
+          </div>
+          <div class="w-75 mx-auto">
+            <label for="level" class="form-label">レベル <span id="showLevel">10</span></label>
+            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="level" value="10">
+          </div>
+          <div class="text-center mt-5">
+            
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">キャンセル</button>
+          <button type="submit" class="btn btn-primary">登録</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <div class="d-flex flex-wrap justify-content-center mt-5">
