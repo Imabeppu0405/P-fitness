@@ -5,15 +5,14 @@ use model\RewardModel;
 
 class RewardQuery
 {
-  public static function insert($fitness, $user) 
+  public static function insert($reward, $user) 
   {
     $db = new DataSource;
-    $sql = 'insert into fitness(name, description, level, user_id) values (:name, :description, :level, :user_id)';
+    $sql = 'insert into reward(name, price, user_id) values (:name, :price, :user_id)';
 
     return $db->execute($sql, [
-      ':name'        => $fitness->name,
-      ':description' => $fitness->description,
-      ':level'       => $fitness->level,
+      ':name'        => $reward->name,
+      ':price' => $reward->price,
       ':user_id'     => $user->user_id,
     ]);
   }
