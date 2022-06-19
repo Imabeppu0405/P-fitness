@@ -27,6 +27,7 @@ function header() {
           <div>
             <?php if(Auth::isLogin()): ?>
             <a href="<?php the_url('/') ?>" class="mx-3 h5 pt-2">Home</a>
+            <a href="<?php the_url('/reward/show') ?>" class="mx-3 h5 pt-2">報酬</a>
             <a href="<?php the_url('logout') ?>" class="btn btn-danger" >ログアウト</a>
             <?php else: ?>
             <a href="<?php the_url('signup') ?>" class="btn btn-primary mx-3">登録</a>

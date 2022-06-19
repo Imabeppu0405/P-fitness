@@ -60,9 +60,12 @@ function index($fitnesses) {
       <h5 class="card-title text-center border-bottom"><?php echo $fitness->name ?></h5>
       <p class="card-text"><?php echo $fitness->description ?></p>
     </div>
-    <div class="text-center mb-3">
-      <button  class="btn btn-dark">Complete</button>
-    </div>
+    <form action="<?php echo CURRENT_URI ?>" method="post">
+      <input type="hidden" name="level" value="<?php echo $fitness->level ?>">
+      <div class="text-center mb-3">
+        <button  class="btn btn-dark">Complete</button>
+      </div>
+    </form>
   </div>
 <?php endforeach; ?>
 </div>

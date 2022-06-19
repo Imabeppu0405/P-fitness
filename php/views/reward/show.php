@@ -45,9 +45,6 @@ function index($rewards) {
   <div class="card m-2 position-relative" style="width: 18rem;">
     <div class="d-flex justify-content-between m-2">
     </div>
-    <div class="card-img mx-auto my-2">
-      <img src="img/maccho.png" alt="報酬アイコン">
-    </div>
     <div class="card-body">
       <h5 class="card-title text-center border-bottom"><?php echo $reward->name ?></h5>
     </div>
