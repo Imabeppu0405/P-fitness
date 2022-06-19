@@ -1,11 +1,12 @@
 <?php
 namespace view\reward\show;
 
-function index($rewards) {
+function index($rewards, $user) {
 ?>
 <div class="d-flex justify-content-center mt-5">
   <h1>報酬一覧</h1>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">報酬追加</button>
+  <h2>現在の所持金：<?php echo $user->money ?>円</h2>
 </div>
 
 <!-- Modal -->
@@ -48,9 +49,12 @@ function index($rewards) {
     <div class="card-body">
       <h5 class="card-title text-center border-bottom"><?php echo $reward->name ?></h5>
     </div>
-    <div class="text-center mb-3">
-      <button  class="btn btn-dark"><?php echo $reward->price ?></button>
-    </div>
+    <form action="<?php echo CURRENT_URI ?>" method="post">
+      <input type="hidden" name="price" value="<?php echo $reward->price ?>">
+      <div class="text-center mb-3">
+        <button type="submit" class="btn btn-dark"><?php echo $reward->price ?>円</button>
+      </div>
+    </form>
   </div>
 <?php endforeach; ?>
 </div>

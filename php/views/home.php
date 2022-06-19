@@ -64,7 +64,7 @@ function index($fitnesses, $user) {
     <form action="<?php echo CURRENT_URI ?>" method="post">
       <input type="hidden" name="level" value="<?php echo $fitness->level ?>">
       <div class="text-center mb-3">
-        <button  class="btn btn-dark">Complete</button>
+        <button type="submit" class="btn btn-dark">Complete</button>
       </div>
     </form>
   </div>

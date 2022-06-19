@@ -45,4 +45,17 @@ class UserQuery {
 
     return $result;
   }
+
+  public static function subtractMoney($user_id, $subtract)
+  {
+    $db = new DataSource;
+    $sql = 'UPDATE user SET money = money - :subtract WHERE user_id = :user_id';
+
+    $result = $db->execute($sql, [
+      ':subtract' => $subtract,
+      ':user_id'  => $user_id,
+    ]);
+
+    return $result;
+  }
 }
