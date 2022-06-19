@@ -32,4 +32,17 @@ class UserQuery {
 
     return $result;
   }
+
+  public static function addMoney($user_id, $add)
+  {
+    $db = new DataSource;
+    $sql = 'UPDATE user SET money = money + :add WHERE user_id = :user_id';
+
+    $result = $db->execute($sql, [
+      ':add'     => $add,
+      ':user_id' => $user_id,
+    ]);
+
+    return $result;
+  }
 }

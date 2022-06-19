@@ -1,11 +1,12 @@
 <?php
 namespace view\home;
 
-function index($fitnesses) {
+function index($fitnesses, $user) {
 ?>
 <div class="d-flex justify-content-center mt-5">
   <h1>フィットネス一覧</h1>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">フィットネス追加</button>
+  <h2>現在の所持金：<?php echo $user->money ?>円</h2>
 </div>
 
 <!-- Modal -->

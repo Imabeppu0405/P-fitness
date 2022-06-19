@@ -14,7 +14,7 @@ function get()
   if (Auth::isLogin()) {
     $user = UserModel::getSession();
     $fitness = FitnessQuery::fetchById($user->user_id);
-    \view\home\index($fitness);
+    \view\home\index($fitness, $user);
   } else {
     redirect('signin');
   }
@@ -25,12 +25,14 @@ function post()
   Auth::requireLogin();
 
   $level = get_param('level', null);
-  var_dump($level);
-  exit;
+
   try {
 
     $user = UserModel::getSession();
-    $is_success = UserQuery::updateMoney($user, $level);
+    $is_success = UserQuery::addMoney($user->user_id, $level);
+    $user = UserQuery::fetchById($user->user_id);
+    UserModel::setSession($user);
+
 
   } catch (Throwable $e) {
 

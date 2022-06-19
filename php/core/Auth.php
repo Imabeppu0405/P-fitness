@@ -23,6 +23,7 @@ class Auth
       if(!empty($user)) { 
         if (password_verify($password, $user->password)) {
           $is_success = true;
+          $user = UserQuery::fetchById($user->user_id);
           UserModel::setSession($user);
         } else {
           Msg::push(Msg::ERROR, 'パスワードが一致しません');
@@ -57,6 +58,7 @@ class Auth
       $is_success = UserQuery::insert($user);
 
       if($is_success) {
+        $user = UserQuery::fetchById($user->user_id);
         UserModel::setSession($user);
       }
 

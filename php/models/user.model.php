@@ -7,7 +7,6 @@ class UserModel extends AbstractModel {
   public string $user_id;
   public string $password;
   public string $nickname;
-  public int $exp;
   public int $money;
 
   protected static $SESSION_NAME = '_user';
@@ -73,5 +72,4 @@ class UserModel extends AbstractModel {
   {
     return static::validateNick($this->nickname);
   }
-
 }
