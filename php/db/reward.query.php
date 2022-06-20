@@ -11,9 +11,21 @@ class RewardQuery
     $sql = 'insert into reward(name, price, user_id) values (:name, :price, :user_id)';
 
     return $db->execute($sql, [
-      ':name'        => $reward->name,
+      ':name'    => $reward->name,
+      ':price'   => $reward->price,
+      ':user_id' => $user->user_id,
+    ]);
+  }
+
+  public static function update($reward)
+  {
+    $db = new DataSource;
+    $sql = 'update reward set name = :name, price = :price where id = :id';
+
+    return $db->execute($sql, [
+      ':name'  => $reward->name,
       ':price' => $reward->price,
-      ':user_id'     => $user->user_id,
+      ':id'    => $reward->id,
     ]);
   }
 

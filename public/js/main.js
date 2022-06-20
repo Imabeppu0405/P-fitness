@@ -1,10 +1,10 @@
-document.getElementById('level').addEventListener('input', (e) => {
-  document.getElementById('showLevel').textContent= e.target.value;
+document.getElementById('range').addEventListener('input', (e) => {
+  document.getElementById('showRange').textContent= e.target.value;
 });
 
-const levels = document.querySelectorAll('.update-level');
-for (let i = 0; i < levels.length; i +=1) {
-  document.getElementById('level' + i).addEventListener('input', (e) => {
-    document.getElementById('showLevel' + i).textContent= e.target.value;
+const ranges = document.querySelectorAll('.range-input');
+for (let i = 0; i < ranges.length; i +=1) {
+  document.getElementById('range' + i).addEventListener('input', (e) => {
+    document.getElementById('showRange' + i).textContent= e.target.value;
   });
 }

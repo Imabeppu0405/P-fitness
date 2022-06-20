@@ -29,8 +29,8 @@ function index($fitnesses, $user) {
             <input type="textarea" class="form-control" name="description" id="description">
           </div>
           <div class="w-75 mx-auto">
-            <label for="level" class="form-label">レベル <span id="showLevel">10</span></label>
-            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="level" value="10">
+            <label for="range" class="form-label">レベル <span id="showRange">10</span></label>
+            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="range" value="10">
           </div>
           <div class="text-center mt-5">
             
@@ -88,15 +88,15 @@ function index($fitnesses, $user) {
                 <input type="textarea" class="form-control" name="description" id="description<?php echo $key ?>" value="<?php echo $fitness->description ?>">
               </div>
               <div class="w-75 mx-auto">
-                <label for="level<?php echo $key ?>" class="form-label">レベル <span id="showLevel<?php echo $key ?>"><?php echo $fitness->level ?></span></label>
-                <input type="range" class="form-range update-level" min="1" max="100" step="1" name="level" id="level<?php echo $key ?>" value="<?php echo $fitness->level ?>">
+                <label for="range<?php echo $key ?>" class="form-label">レベル <span id="showRange<?php echo $key ?>"><?php echo $fitness->level ?></span></label>
+                <input type="range" class="form-range range-input" min="1" max="100" step="1" name="level" id="range<?php echo $key ?>" value="<?php echo $fitness->level ?>">
               </div>
               <input type="hidden" name="id" value="<?php echo $fitness->id ?>">
                 
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-bs-dismiss="modal">キャンセル</button>
-              <button type="submit" class="btn btn-primary">登録</button>
+              <button type="submit" class="btn btn-primary">更新</button>
             </div>
           </form>
         </div>
