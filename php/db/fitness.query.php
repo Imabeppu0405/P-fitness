@@ -18,16 +18,16 @@ class FitnessQuery
     ]);
   }
 
-  public static function update($fitness, $user)
+  public static function update($fitness)
   {
     $db = new DataSource;
-    $sql = 'update fitness set name = :name, description = :description, level = :level where user_id = :user_id';
+    $sql = 'update fitness set name = :name, description = :description, level = :level where id = :id';
 
     return $db->execute($sql, [
       ':name'        => $fitness->name,
       ':description' => $fitness->description,
       ':level'       => $fitness->level,
-      ':user_id'     => $user->user_id,
+      ':id'          => $fitness->id,
     ]);
   }
 

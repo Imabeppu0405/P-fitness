@@ -45,7 +45,7 @@ function index($fitnesses, $user) {
   </div>
 </div>
 
-<div class="d-flex flex-wrap justify-content-center mt-5">
+<div id="fitness-index-cont" class="d-flex flex-wrap justify-content-center mt-5">
 <?php foreach($fitnesses as $key => $fitness) : ?>
   <div class="card m-2 position-relative" style="width: 18rem;">
     <div class="d-flex justify-content-between m-2">
@@ -88,9 +88,10 @@ function index($fitnesses, $user) {
                 <input type="textarea" class="form-control" name="description" id="description<?php echo $key ?>" value="<?php echo $fitness->description ?>">
               </div>
               <div class="w-75 mx-auto">
-                <label for="level<?php echo $key ?>" class="form-label">レベル <span id="showLevel"></span><?php echo $fitness->level ?></label>
-                <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="level<?php echo $key ?>" value="<?php echo $fitness->level ?>">
+                <label for="level<?php echo $key ?>" class="form-label">レベル <span id="showLevel<?php echo $key ?>"><?php echo $fitness->level ?></span></label>
+                <input type="range" class="form-range update-level" min="1" max="100" step="1" name="level" id="level<?php echo $key ?>" value="<?php echo $fitness->level ?>">
               </div>
+              <input type="hidden" name="id" value="<?php echo $fitness->id ?>">
                 
             </div>
             <div class="modal-footer">

@@ -11,15 +11,14 @@ use Throwable;
 function post() {
   Auth::requireLogin();
 
-  $fitness = FitnessModel::getSession();
-  $fitness->name = get_param('name', $fitness->name);
-  $fitness->description = get_param('description', $fitness->description);
-  $fitness->level = get_param('level', $fitness->level);
-  
-  try {
+  $fitness = new FitnessModel;
+  $fitness->id =  get_param('id', null);
+  $fitness->name = get_param('name', null);
+  $fitness->description = get_param('description', null);
+  $fitness->level = get_param('level', null);
 
-    $user = UserModel::getSession();
-    $is_success = FitnessQuery::update($fitness, $user);
+  try {
+    $is_success = FitnessQuery::update($fitness);
 
   } catch(Throwable $e) {
 

@@ -4,6 +4,7 @@ namespace model;
 
 class FitnessModel extends AbstractModel
 {
+  public int $id;
   public string $name;
   public string $description;
   public int $level;
