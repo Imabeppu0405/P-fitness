@@ -9,7 +9,7 @@ function index($rewards, $user) {
   <h2>現在の所持金：<?php echo $user->money ?>円</h2>
 </div>
 
-<!-- Modal -->
+<!-- 新規作成Modal -->
 <div class="modal fade" id="addReward" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addRewardLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -89,6 +89,28 @@ function index($rewards, $user) {
               <button type="submit" class="btn btn-primary">更新</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 削除確認モーダル -->
+    <div class="modal fade" id="deleteReward<?php echo $key ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteRewardLabel<?php echo $key ?>" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteRewardLabel<?php echo $key ?>">削除確認</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              削除してもよろしいですか？
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+              <form action="/reward/delete" method="post">
+                <input type="hidden" name="id" value="<?php echo $reward->id ?>">
+                <button type="submit" class="btn btn-danger">削除</button>
+              </form>
+            </div>
         </div>
       </div>
     </div>

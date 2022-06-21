@@ -1,9 +1,9 @@
 <?php
-namespace controller\fitness\delete;
+namespace controller\reward\delete;
 
 use app\core\Auth;
 use app\core\Message\Msg;
-use db\FitnessQuery;
+use db\RewardQuery;
 use Throwable;
 
 function post() {
@@ -12,7 +12,7 @@ function post() {
   $id =  get_param('id', null);
 
   try {
-    $is_success = FitnessQuery::delete($id);
+    $is_success = RewardQuery::delete($id);
 
   } catch(Throwable $e) {
 
@@ -24,7 +24,7 @@ function post() {
   if($is_success) {
 
     Msg::push(Msg::INFO, '削除しました。');
-    redirect(GO_HOME);
+    redirect(GO_REFERER);
 
   } else {
 

@@ -29,6 +29,16 @@ class RewardQuery
     ]);
   }
 
+  public static function delete($id)
+  {
+    $db = new DataSource;
+    $sql = 'update reward set delete_flag = 1 where id = :id';
+
+    return $db->execute($sql, [
+      ':id'          => $id,
+    ]);
+  }
+
   public static function fetchById($user_id)
   {
     $db = new DataSource;
