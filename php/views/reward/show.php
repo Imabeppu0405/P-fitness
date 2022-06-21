@@ -44,9 +44,12 @@ function index($rewards, $user) {
 <div class="d-flex flex-wrap justify-content-center mt-5">
 <?php foreach($rewards as $key => $reward) : ?>
   <div class="card m-2 position-relative" style="width: 18rem;">
-    <div class="d-flex justify-content-between m-2">
-      <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#updateReward<?php echo $key ?>">
-        Edit <span class="bi bi-pencil-square"></span>
+    <div class="d-flex justify-content-end m-2">
+      <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#updateReward<?php echo $key ?>">
+         <span class="bi bi-pencil-square"></span>
+      </button>
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteReward<?php echo $key ?>">
+        <span class="bi bi-trash"></span>
       </button>
     </div>
     <div class="card-body">

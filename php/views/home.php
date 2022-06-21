@@ -50,9 +50,14 @@ function index($fitnesses, $user) {
   <div class="card m-2 position-relative" style="width: 18rem;">
     <div class="d-flex justify-content-between m-2">
       <div class="text-danger"><?php echo $fitness->level ?>P</div>
-      <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#updateFitness<?php echo $key ?>">
-        Edit <span class="bi bi-pencil-square"></span>
-      </button>
+      <div>
+        <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#updateFitness<?php echo $key ?>">
+          <span class="bi bi-pencil-square"></span>
+        </button>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteFitness<?php echo $key ?>">
+          <span class="bi bi-trash"></span>
+        </button>
+      </div>
     </div>
     <div class="card-img mx-auto my-2">
       <img src="img/maccho.png" alt="フィットネスアイコン">
@@ -99,6 +104,28 @@ function index($fitnesses, $user) {
               <button type="submit" class="btn btn-primary">更新</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+
+     <!-- 更新用モーダル -->
+     <div class="modal fade" id="deleteFitness<?php echo $key ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteFitnessLabel<?php echo $key ?>" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteFitnessLabel<?php echo $key ?>">削除確認</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            削除してよろしいですか？
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+            <form action="/fitness/delete" method="post">
+              <input type="hidden" name="id" value="<?php echo $fitness->id ?>" >
+              <button type="submit" class="btn btn-danger">削除</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

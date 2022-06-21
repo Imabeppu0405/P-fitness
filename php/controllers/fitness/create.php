@@ -39,9 +39,4 @@ function post() {
     redirect(GO_REFERER);
 
   }
-
-  
-} 
-
-
-
+}
