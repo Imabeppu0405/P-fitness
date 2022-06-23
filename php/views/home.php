@@ -2,6 +2,12 @@
 namespace view\home;
 
 function index($fitnesses, $user) {
+  $categories = [
+    ['腕', 'arm'], 
+    ['腹', 'abdmen'],
+    ['脚', 'leg'], 
+    ['その他', 'others']
+  ];
 ?>
 <div class="d-flex justify-content-center mt-5">
   <h1>フィットネス一覧</h1>
@@ -28,13 +34,22 @@ function index($fitnesses, $user) {
             <label for="description" class="form-label">詳細</label>
             <input type="textarea" class="form-control" name="description" id="description">
           </div>
-          <div class="w-75 mx-auto">
+          <div class="mb-4 w-75 mx-auto">
             <label for="range" class="form-label">レベル <span id="showRange">10</span></label>
             <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="range" value="10">
           </div>
-          <div class="text-center mt-5">
-            
-        </div>
+          <div class="w-75 mx-auto">
+            <label for="arm" class="form-label">鍛える箇所</label>
+            <div>
+              <?php foreach($categories as $key => $category) : ?>
+              <label for="<?php echo $category[1] ?>">
+                <?php echo $category[0] ?>
+                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>">
+              </label>
+              <?php endforeach; ?>
+            </div>
+          </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">キャンセル</button>
@@ -49,7 +64,11 @@ function index($fitnesses, $user) {
 <?php foreach($fitnesses as $key => $fitness) : ?>
   <div class="card m-2 position-relative" style="width: 18rem;">
     <div class="d-flex justify-content-between m-2">
-      <div class="text-danger"><?php echo $fitness->level ?>P</div>
+      <div class="card-img-cont <?php echo $categories[$fitness->category][1] ?>">
+        <div class="card-img my-2 mx-auto">
+          <img src="img/<?php echo $categories[$fitness->category][1] ?>.png" alt="フィットネスアイコン">
+        </div>
+      </div>
       <div>
         <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#updateFitness<?php echo $key ?>">
           <span class="bi bi-pencil-square"></span>
@@ -59,12 +78,9 @@ function index($fitnesses, $user) {
         </button>
       </div>
     </div>
-    <div class="card-img mx-auto my-2">
-      <img src="img/maccho.png" alt="フィットネスアイコン">
-    </div>
     <div class="card-body">
-      <h5 class="card-title text-center border-bottom"><?php echo $fitness->name ?></h5>
-      <p class="card-text"><?php echo $fitness->description ?></p>
+      <h5 class="card-title h2 text-center border-bottom"><?php echo $fitness->name ?></h5>
+      <p class="card-text h5 text-center <?php echo $categories[$fitness->category][1] ?>"><?php echo $fitness->level ?>p</p>
     </div>
     <form action="<?php echo CURRENT_URI ?>" method="post">
       <input type="hidden" name="level" value="<?php echo $fitness->level ?>">
@@ -95,6 +111,17 @@ function index($fitnesses, $user) {
               <div class="w-75 mx-auto">
                 <label for="range<?php echo $key ?>" class="form-label">レベル <span id="showRange<?php echo $key ?>"><?php echo $fitness->level ?></span></label>
                 <input type="range" class="form-range range-input" min="1" max="100" step="1" name="level" id="range<?php echo $key ?>" value="<?php echo $fitness->level ?>">
+              </div>
+              <div class="w-75 mx-auto">
+                <label for="arm" class="form-label">鍛える箇所</label>
+                <div>
+                  <?php foreach($categories as $categry_key => $category) : ?>
+                  <label for="<?php echo $category[1] ?>">
+                    <?php echo $category[0] ?>
+                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>">
+                  </label>
+                  <?php endforeach; ?>
+                </div>
               </div>
               <input type="hidden" name="id" value="<?php echo $fitness->id ?>">
                 

@@ -15,6 +15,7 @@ function post() {
   $fitness->name = get_param('name', null);
   $fitness->description = get_param('description', null);
   $fitness->level = get_param('level', null);
+  $fitness->category = get_param('category', null);
 
   try {
     $is_success = FitnessQuery::update($fitness);

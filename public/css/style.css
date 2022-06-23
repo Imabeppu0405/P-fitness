@@ -11,9 +11,35 @@ img {
   width: 100%;
 }
 
+.card-img-cont {
+  width: 70px;
+  border-radius: 50%;
+  border: solid 1px;
+}
+
+.arm {
+  border-color:#DF5656;
+  color: #DF5656;
+}
+
+.abdmen {
+  border-color: #E0D96B;
+  color: #E0D96B;
+}
+
+.leg {
+  border-color: #6AB761;
+  color: #6AB761;
+}
+
+.others {
+  border-color: #61A7B7;
+  color: #61A7B7;
+}
 
 .card-img {
-  width: 50%;
+  width: 50px;
+  object-fit: cover;
 }
 
 #container {

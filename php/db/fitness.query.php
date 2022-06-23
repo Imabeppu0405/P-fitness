@@ -8,12 +8,13 @@ class FitnessQuery
   public static function insert($fitness, $user) 
   {
     $db = new DataSource;
-    $sql = 'insert into fitness(name, description, level, user_id) values (:name, :description, :level, :user_id)';
+    $sql = 'insert into fitness(name, description, level, category, user_id) values (:name, :description, :level, :category, :user_id)';
 
     return $db->execute($sql, [
       ':name'        => $fitness->name,
       ':description' => $fitness->description,
       ':level'       => $fitness->level,
+      ':category'    => $fitness->category,
       ':user_id'     => $user->user_id,
     ]);
   }
@@ -21,12 +22,13 @@ class FitnessQuery
   public static function update($fitness)
   {
     $db = new DataSource;
-    $sql = 'update fitness set name = :name, description = :description, level = :level where id = :id';
+    $sql = 'update fitness set name = :name, description = :description, level = :level, category = :category where id = :id';
 
     return $db->execute($sql, [
       ':name'        => $fitness->name,
       ':description' => $fitness->description,
       ':level'       => $fitness->level,
+      ':category'    => $fitness->category,
       ':id'          => $fitness->id,
     ]);
   }
