@@ -3,10 +3,12 @@ namespace view\reward\show;
 
 function index($rewards, $user) {
 ?>
-<div class="d-flex justify-content-center mt-5">
-  <h1>報酬一覧</h1>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReward">報酬追加</button>
-  <h2>現在の所持金：<?php echo $user->money ?>円</h2>
+<div class="d-flex justify-content-center mt-5 position-relative w-50 mx-auto">
+  <h1 class="mx-3">報酬一覧</h1>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReward">追加</button>
+  <div class="position-absolute top-0 end-0">
+    <p class="h5">現在の所持金：<?php echo $user->money ?>円</p>
+  </div>
 </div>
 
 <!-- 新規作成Modal -->

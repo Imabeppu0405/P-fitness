@@ -9,10 +9,12 @@ function index($fitnesses, $user) {
     ['その他', 'others']
   ];
 ?>
-<div class="d-flex justify-content-center mt-5">
-  <h1>フィットネス一覧</h1>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFitness">フィットネス追加</button>
-  <h2>現在の所持金：<?php echo $user->money ?>円</h2>
+<div class="d-flex justify-content-center mt-5 position-relative mx-auto w-50">
+  <h1 class="mx-3">フィットネス一覧</h1>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFitness">追加</button>
+  <div class="position-absolute top-0 end-0">
+    <p class="h5">現在の所持金：<?php echo $user->money ?>円</p>
+  </div>
 </div>
 
 <!-- Modal -->
@@ -42,9 +44,9 @@ function index($fitnesses, $user) {
             <label for="arm" class="form-label">鍛える箇所</label>
             <div>
               <?php foreach($categories as $key => $category) : ?>
-              <label for="<?php echo $category[1] ?>">
-                <?php echo $category[0] ?>
+              <label for="<?php echo $category[1] ?>" class="m-1">
                 <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>">
+                <?php echo $category[0] ?>
               </label>
               <?php endforeach; ?>
             </div>
@@ -116,9 +118,9 @@ function index($fitnesses, $user) {
                 <label for="arm" class="form-label">鍛える箇所</label>
                 <div>
                   <?php foreach($categories as $categry_key => $category) : ?>
-                  <label for="<?php echo $category[1] ?>">
-                    <?php echo $category[0] ?>
+                  <label for="<?php echo $category[1] ?>" class="m-1">
                     <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>">
+                    <?php echo $category[0] ?>
                   </label>
                   <?php endforeach; ?>
                 </div>
