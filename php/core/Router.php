@@ -2,6 +2,9 @@
 
 namespace app\core;
 
+use app\core\Message\Msg;
+use Throwable;
+
 class Router
 {
   public Request $request;
@@ -14,13 +17,25 @@ class Router
   
   public function resolve()
   {
-    $path = $this->request->getPath();
-    $method = $this->request->getMethod();
+    try {
+      $path = $this->request->getPath();
+      $method = $this->request->getMethod();
 
-    $targetFile = SOURCE_BASE . "controllers{$path}.php";
-    require_once($targetFile);
-    $targetname = str_replace('/', '\\', $path);
-    $fn = "\\controller{$targetname}\\{$method}";
-    $fn();
+      $targetFile = SOURCE_BASE . "controllers{$path}.php";
+
+      if (!file_exists($targetFile)) {
+        require_once SOURCE_BASE . "views/404.php";
+        return;
+      }
+
+      require_once($targetFile);
+      $targetname = str_replace('/', '\\', $path);
+      $fn = "\\controller{$targetname}\\{$method}";
+      $fn();
+
+    } catch(Throwable $e) {
+      Msg::push(Msg::DEBUG, $e->getMessage());
+      redirect('404');
+    }
   }
 }
