@@ -21,21 +21,17 @@ class UserModel extends AbstractModel {
     } else if (!preg_match('/^[a-zA-Z0-9]{1,10}$/', $val)) {
       Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下の英数字で入力してください');
       $res = false;
-    } else if(!UserQuery::isUniqueId($val)) {
-      Msg::push(Msg::ERROR, 'ユーザーIDはすでに登録済みです');
-      $res = false;
     }
 
     return $res;
   }
 
-  public static function isUniqueId($val)
-  {
-
-  }
-
   public function isValidId() {
     return static::validateId($this->user_id);
+  }
+
+  public function isUniqueId() {
+    return UserQuery::isUniqueId($this->user_id);
   }
 
   public static function validatePwd($val)

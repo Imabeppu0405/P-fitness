@@ -6,8 +6,9 @@ use app\core\Auth;
 use app\core\Message\Msg;
 
 function get() {
-  
-  \view\signup\index();
+  $user = UserModel::getSession();
+  UserModel::clearSession();
+  \view\signup\index($user->user_id, $user->password, $user->nickname);
 }
 
 function post() {
@@ -20,6 +21,7 @@ function post() {
     Msg::push(Msg::INFO, "{$user->nickname}さん、ようこそ");
     redirect(GO_HOME);
   } else {
+    UserModel::setSession($user);
     redirect(GO_REFERER);
   }
 }

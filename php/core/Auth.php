@@ -17,7 +17,7 @@ class Auth
         return false;
       }
       $is_success = false;
-      
+
       $user = UserQuery::fetchById($user_id);
     
       if(!empty($user)) { 
@@ -44,11 +44,15 @@ class Auth
   public static function regist($user)
   {
     try {
-      # TODO: 形式チェック
       if (!($user->isValidId()
           * $user->isValidPwd()
           * $user->isValidNick())) {
           return false;
+      }
+
+      if (!$user->isUniqueId()) {
+        Msg::push(Msg::ERROR, 'ユーザーIDはすでに登録済みです');
+        return false;
       }
 
       $is_success = false;
@@ -99,7 +103,7 @@ class Auth
 
     }
 
-    if(isset($user)) {
+    if(isset($user->money)) {
       return true;
     } else {
       return false;

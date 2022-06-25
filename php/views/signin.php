@@ -1,7 +1,7 @@
 <?php
 namespace view\signin;
 
-function index($user_id = '', $password = '') {
+function index($user_id, $password) {
 ?>
 <div>
   <div class="form-cont mx-auto bg-white py-4 mt-5 shadow-sm">
