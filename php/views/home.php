@@ -45,7 +45,7 @@ function index($fitnesses, $user) {
             <div>
               <?php foreach($categories as $key => $category) : ?>
               <label for="<?php echo $category[1] ?>" class="m-1">
-                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>">
+                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if($key == 0) echo 'checked' ?>>
                 <?php echo $category[0] ?>
               </label>
               <?php endforeach; ?>
@@ -119,7 +119,7 @@ function index($fitnesses, $user) {
                 <div>
                   <?php foreach($categories as $categry_key => $category) : ?>
                   <label for="<?php echo $category[1] ?>" class="m-1">
-                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>">
+                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>" <?php if($categry_key == $fitness->category) echo 'checked' ?>>
                     <?php echo $category[0] ?>
                   </label>
                   <?php endforeach; ?>

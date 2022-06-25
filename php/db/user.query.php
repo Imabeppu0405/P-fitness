@@ -66,7 +66,7 @@ class UserQuery {
 
     $result = $db->select($sql, [':user_id' => $user_id ]);
     
-    if ($result['count'] === 0) {
+    if ($result[0]['count'] === 0) {
       return true;
     } else {
       return false;

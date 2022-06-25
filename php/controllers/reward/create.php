@@ -29,11 +29,11 @@ function post() {
 
   if($is_success) {
 
-    Msg::push(Msg::INFO, 'フィットネスの登録に成功しました。');
+    Msg::push(Msg::INFO, '報酬の登録に成功しました。');
 
   } else {
 
-    Msg::push(Msg::ERROR, 'フィットネスの登録に失敗しました。');
+    Msg::push(Msg::ERROR, '報酬の登録に失敗しました。');
 
   }
   redirect(GO_REFERER);

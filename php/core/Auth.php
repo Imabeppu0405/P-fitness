@@ -12,7 +12,6 @@ class Auth
   public static function login($user_id, $password)
   {
     try {
-      # TODO: 形式チェック
       if(!(UserModel::validateId($user_id) * UserModel::validatePwd($password))) {
         return false;
       }
