@@ -58,4 +58,18 @@ class UserQuery {
 
     return $result;
   }
+
+  public static function isUniqueId($user_id)
+  {
+    $db = new DataSource;
+    $sql = 'SELECT COUNT(user_id) as count FROM user WHERE user_id = :user_id';
+
+    $result = $db->select($sql, [':user_id' => $user_id ]);
+    
+    if ($result['count'] === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

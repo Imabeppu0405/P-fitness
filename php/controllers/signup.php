@@ -6,6 +6,7 @@ use app\core\Auth;
 use app\core\Message\Msg;
 
 function get() {
+  
   \view\signup\index();
 }
 

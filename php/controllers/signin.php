@@ -7,7 +7,9 @@ use app\core\Message\Msg;
 use model\UserModel;
 
 function get() {
-  \view\signin\index();
+  $user_id = get_param('user_id', '', false);
+  $password = get_param('password', '', false);
+  \view\signin\index($user_id, $password);
 }
 
 function post() {
@@ -19,6 +21,9 @@ function post() {
     Msg::push(Msg::INFO, "{$user->nickname}さん、ようこそ");
     redirect(GO_HOME);
   } else {
-    redirect(GO_REFERER);
+    redirect(GO_REFERER, [
+      'user_id' => $user_id, 
+      'password' => $password
+    ]);
   }
 }

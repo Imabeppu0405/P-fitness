@@ -8,8 +8,7 @@ class Msg extends AbstractModel {
   public const ERROR = 'error';
   public const INFO = 'info';
   public const DEBUG = 'debug';
-
-  # TODO: セッション処理はまとめる
+  
   protected static $SESSION_NAME = '_msg';
 
   public static function push($type, $msg) {

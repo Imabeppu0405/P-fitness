@@ -1,7 +1,7 @@
 <?php
 namespace view\signin;
 
-function index() {
+function index($user_id = '', $password = '') {
 ?>
 <div>
   <div class="form-cont mx-auto bg-white py-4 mt-5 shadow-sm">
@@ -11,11 +11,11 @@ function index() {
     <form class="mt-5" action="<?php echo CURRENT_URI; ?>" method="post">
       <div class="mb-4 w-75 mx-auto">
         <label for="user_id" class="form-label">ユーザーID</label>
-        <input type="text" class="form-control" name="user_id" id="user_id">
+        <input type="text" class="form-control" name="user_id" id="user_id" value="<?php echo $user_id ?>">
       </div>
       <div class="w-75 mx-auto">
         <label for="password" class="form-label">パスワード</label>
-        <input type="password" class="form-control" name="password" id="password">
+        <input type="password" class="form-control" name="password" id="password" value="<?php echo $password ?>">
       </div>
       <div class="text-center mt-5">
         <button type="submit" class="btn btn-primary">ログイン</button>

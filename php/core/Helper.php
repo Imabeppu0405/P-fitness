@@ -5,7 +5,7 @@ function get_param($key, $default_val, $is_post = true)
   return $arry[$key] ?? $default_val;
 }
 
-function redirect($path)
+function redirect($path, $params = array())
 {
   if($path === GO_HOME) {
     $path = get_url('');
@@ -14,8 +14,16 @@ function redirect($path)
   } else {
     $path = get_url($path);
   }
-  $out = ob_get_clean();
-  $out = strtolower($out);
+
+  $path = strstr($path, '?', true) ?? $path;
+
+  if($params) {
+    $get_param = '?';
+    foreach($params as $key => $param) {
+      $get_param .= "$key=$param&";
+    }
+    $path .= substr($get_param, 0, -1);
+  }
   header("Location: {$path}");
 
   die();
