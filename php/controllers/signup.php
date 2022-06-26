@@ -6,9 +6,13 @@ use app\core\Auth;
 use app\core\Message\Msg;
 
 function get() {
-  $user = UserModel::getSession();
-  UserModel::clearSession();
-  \view\signup\index($user->user_id, $user->password, $user->nickname);
+  if (!Auth::isLogin()) {
+    $user = UserModel::getSession();
+    UserModel::clearSession();
+    \view\signup\index($user->user_id, $user->password, $user->nickname);
+  } else {
+    redirect('/');
+  }
 }
 
 function post() {

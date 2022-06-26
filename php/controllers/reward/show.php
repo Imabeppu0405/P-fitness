@@ -11,11 +11,19 @@ use model\UserModel;
 use Throwable;
 
 function get() {
+  if (Auth::isLogin()) {
+
   $user = UserModel::getSession();
   $rewards = RewardQuery::fetchById($user->user_id);
   $reward_errors = RewardModel::getSession();
   RewardModel::clearSession();
   \view\reward\show\index($rewards, $user, $reward_errors);
+
+  } else {
+
+    redirect('signin');
+    
+  }
 }
 
 function post()

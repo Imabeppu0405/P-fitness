@@ -59,7 +59,7 @@ class UserModel extends AbstractModel {
     if(empty($val)) {
       Msg::push(Msg::ERROR, 'ニックネームを入力してください');
       $res = false;
-    } else if(!preg_match('/^[ぁ-んァ-ヶ-一-龠々]{1,10}$/u', $val)) {
+    } else if(!preg_match('/^[ぁ-んァ-ヶｦ-ﾝ一-龠々ー]{1,10}$/u', $val)) {
       Msg::push(Msg::ERROR, 'ニックネームは10文字以下の日本語で入力してください');
       $res = false;
     }

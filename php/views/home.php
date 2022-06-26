@@ -14,13 +14,15 @@ function index($fitnesses, $user, $fitness_errors) {
   // 成功時のMessage表示
   if(is_null($fitness_errors)) Msg::flush();
 ?>
-<div class="d-flex justify-content-center mt-5 position-relative mx-auto w-50">
+<div class="d-flex justify-content-center mt-5 mx-auto w-50">
   <h1 class="mx-3">フィットネス一覧</h1>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFitness">追加</button>
-  <div class="position-absolute top-0 end-0">
-    <p class="h5">現在の所持金：<?php echo $user->money ?>円</p>
-  </div>
 </div>
+<p class="h5 text-center m-3">現在の所持金：<?php echo $user->money ?>円</p>
+
+<?php if(empty($fitnesses)) : ?>
+  <p class="text-center">現在フィットネスは登録されていません。</p>
+<?php endif; ?>
 
 <!-- 新規作成Modal -->
 <div class="modal fade" id="createFitness" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createFitnessLabel" aria-hidden="true">
@@ -41,6 +43,7 @@ function index($fitnesses, $user, $fitness_errors) {
           <div class="mb-4 w-75 mx-auto">
             <label for="name" class="form-label">名前</label>
             <input type="text" class="form-control" name="name" id="name" value="<?php echo $create_fitness->name ?>">
+            <div class="form-text">10文字以下</div>
           </div>
           <div class="mb-4 w-75 mx-auto">
             <label for="range" class="form-label">レベル <span id="showRange"><?php echo $create_fitness->level ?? '10' ?></span></label>
@@ -116,6 +119,7 @@ function index($fitnesses, $user, $fitness_errors) {
               <div class="mb-4 w-75 mx-auto">
                 <label for="name<?php echo $key ?>" class="form-label">名前</label>
                 <input type="text" class="form-control" name="name" id="name<?php echo $key ?>" value="<?php echo $fitness->name ?>">
+                <div class="form-text">10文字以下</div>
               </div>
               <div class="w-75 mx-auto">
                 <label for="range<?php echo $key ?>" class="form-label">レベル <span id="showRange<?php echo $key ?>"><?php echo $fitness->level ?></span></label>
