@@ -5,6 +5,7 @@ use app\core\Auth;
 use app\core\Message\Msg;
 use db\FitnessQuery;
 use model\FitnessModel;
+use model\UserModel;
 use Throwable;
 
 function post() {
@@ -13,12 +14,12 @@ function post() {
   $fitness = new FitnessModel;
   $fitness->id =  get_param('id', null);
   $fitness->name = get_param('name', null);
-  $fitness->description = get_param('description', null);
   $fitness->level = get_param('level', null);
   $fitness->category = get_param('category', null);
+  $user = UserModel::getSession();
 
   try {
-    $is_success = FitnessQuery::update($fitness);
+    $is_success = FitnessQuery::update($fitness, $user);
 
   } catch(Throwable $e) {
 
@@ -34,6 +35,8 @@ function post() {
 
   } else {
 
+    $fitness->is_add = 0;
+    FitnessModel::setSession($fitness);
     Msg::push(Msg::ERROR, 'フィットネスの更新に失敗しました。');
     redirect(GO_REFERER);
 

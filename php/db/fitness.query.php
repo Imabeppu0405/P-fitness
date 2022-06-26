@@ -18,25 +18,32 @@ class FitnessQuery
     }
 
     $db = new DataSource;
-    $sql = 'insert into fitness(name, description, level, category, user_id) values (:name, :description, :level, :category, :user_id)';
+    $sql = 'insert into fitness(name, level, category, user_id) values (:name, :level, :category, :user_id)';
 
     return $db->execute($sql, [
       ':name'        => $fitness->name,
-      ':description' => $fitness->description,
       ':level'       => $fitness->level,
       ':category'    => $fitness->category,
       ':user_id'     => $user->user_id,
     ]);
   }
 
-  public static function update($fitness)
+  public static function update($fitness, $user)
   {
+    if (!($fitness->isValidName() * $fitness->isValidLevel())) {
+      return false;
+    }
+
+    if (!self::isUniqueNameExceptId($fitness->name, $user->user_id, $fitness->id)) {
+      Msg::push(Msg::ERROR, 'フィットネスはすでに登録済みです');
+      return false;
+    }
+
     $db = new DataSource;
-    $sql = 'update fitness set name = :name, description = :description, level = :level, category = :category where id = :id';
+    $sql = 'update fitness set name = :name, level = :level, category = :category where id = :id';
 
     return $db->execute($sql, [
       ':name'        => $fitness->name,
-      ':description' => $fitness->description,
       ':level'       => $fitness->level,
       ':category'    => $fitness->category,
       ':id'          => $fitness->id,
@@ -75,6 +82,24 @@ class FitnessQuery
     $result = $db->select($sql, [
       ':name'    => $name,
       ':user_id' => $user_id,
+    ]);
+    
+    if ($result[0]['count'] === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private function isUniqueNameExceptId($name, $user_id, $id)
+  {
+    $db = new DataSource;
+    $sql = 'SELECT COUNT(id) as count FROM fitness WHERE name = :name and delete_flag = 0 and user_id = :user_id and id != :id';
+
+    $result = $db->select($sql, [
+      ':name'    => $name,
+      ':user_id' => $user_id,
+      ':id'      => $id
     ]);
     
     if ($result[0]['count'] === 0) {

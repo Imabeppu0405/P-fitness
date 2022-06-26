@@ -3,7 +3,6 @@
 namespace model;
 
 use app\core\Message\Msg;
-use db\FitnessQuery;
 
 class FitnessModel extends AbstractModel
 {
@@ -13,6 +12,7 @@ class FitnessModel extends AbstractModel
   public int $category;
   public string $user_id;
   public int $delete_flag;
+  public int $is_add;
   protected static $SESSION_NAME = '_fitness';
 
   public static function validateName($val)

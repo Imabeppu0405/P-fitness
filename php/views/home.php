@@ -1,13 +1,17 @@
 <?php
 namespace view\home;
 
-function index($fitnesses, $user) {
+use app\core\Message\Msg;
+
+function index($fitnesses, $user, $fitness_errors) {
   $categories = [
     ['腕', 'arm'], 
     ['腹', 'abdmen'],
     ['脚', 'leg'], 
     ['その他', 'others']
   ];
+
+  if(is_null($fitness_errors)) Msg::flush();
 ?>
 <div class="d-flex justify-content-center mt-5 position-relative mx-auto w-50">
   <h1 class="mx-3">フィットネス一覧</h1>
@@ -17,7 +21,7 @@ function index($fitnesses, $user) {
   </div>
 </div>
 
-<!-- Modal -->
+<!-- 新規作成Modal -->
 <div class="modal fade" id="addFitness" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addFitnessLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -27,25 +31,26 @@ function index($fitnesses, $user) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        
+          <?php if($fitness_errors->is_add) : ?>
+            <?php $add_fitness = $fitness_errors ?>
+            <div id="addError">
+              <?php Msg::flush(); ?>
+            </div>
+          <?php endif; ?>
           <div class="mb-4 w-75 mx-auto">
             <label for="name" class="form-label">名前</label>
-            <input type="text" class="form-control" name="name" id="name">
+            <input type="text" class="form-control" name="name" id="name" value="<?php echo $add_fitness->name ?>">
           </div>
           <div class="mb-4 w-75 mx-auto">
-            <label for="description" class="form-label">詳細</label>
-            <input type="textarea" class="form-control" name="description" id="description">
-          </div>
-          <div class="mb-4 w-75 mx-auto">
-            <label for="range" class="form-label">レベル <span id="showRange">10</span></label>
-            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="range" value="10">
+            <label for="range" class="form-label">レベル <span id="showRange"><?php echo $add_fitness->level ?? '10' ?></span></label>
+            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="range" value="<?php echo $add_fitness->level ?? '10' ?>">
           </div>
           <div class="w-75 mx-auto">
             <label for="arm" class="form-label">鍛える箇所</label>
             <div>
               <?php foreach($categories as $key => $category) : ?>
               <label for="<?php echo $category[1] ?>" class="m-1">
-                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if($key == 0) echo 'checked' ?>>
+                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if($key == $add_fitness->category ?? 0) echo 'checked' ?>>
                 <?php echo $category[0] ?>
               </label>
               <?php endforeach; ?>
@@ -101,25 +106,26 @@ function index($fitnesses, $user) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            
+              <?php if(!$fitness_errors->is_add and $fitness_errors->id == $fitness->id) : ?>
+                <?php $fitness = $fitness_errors; ?>
+                <div id="updateError">
+                  <?php Msg::flush(); ?>
+                </div>
+              <?php endif; ?>
               <div class="mb-4 w-75 mx-auto">
                 <label for="name<?php echo $key ?>" class="form-label">名前</label>
                 <input type="text" class="form-control" name="name" id="name<?php echo $key ?>" value="<?php echo $fitness->name ?>">
               </div>
-              <div class="mb-4 w-75 mx-auto">
-                <label for="description<?php echo $key ?>" class="form-label">詳細</label>
-                <input type="textarea" class="form-control" name="description" id="description<?php echo $key ?>" value="<?php echo $fitness->description ?>">
-              </div>
               <div class="w-75 mx-auto">
                 <label for="range<?php echo $key ?>" class="form-label">レベル <span id="showRange<?php echo $key ?>"><?php echo $fitness->level ?></span></label>
-                <input type="range" class="form-range range-input" min="1" max="100" step="1" name="level" id="range<?php echo $key ?>" value="<?php echo $fitness->level ?>">
+                <input type="range" class="form-range range-input" min="1" max="100" step="1" name="level" id="range<?php echo $key ?>" value="<?php echo  $fitness->level ?>">
               </div>
               <div class="w-75 mx-auto">
                 <label for="arm" class="form-label">鍛える箇所</label>
                 <div>
                   <?php foreach($categories as $categry_key => $category) : ?>
                   <label for="<?php echo $category[1] ?>" class="m-1">
-                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>" <?php if($categry_key == $fitness->category) echo 'checked' ?>>
+                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>" <?php if($categry_key ==  $fitness->category) echo 'checked' ?>>
                     <?php echo $category[0] ?>
                   </label>
                   <?php endforeach; ?>

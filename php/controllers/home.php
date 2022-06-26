@@ -6,6 +6,7 @@ use app\core\Auth;
 use app\core\Message\Msg;
 use db\FitnessQuery;
 use db\UserQuery;
+use model\FitnessModel;
 use model\UserModel;
 use Throwable;
 
@@ -13,8 +14,10 @@ function get()
 {
   if (Auth::isLogin()) {
     $user = UserModel::getSession();
+    $fitness_errors = FitnessModel::getSession();
+    FitnessModel::clearSession();
     $fitness = FitnessQuery::fetchById($user->user_id);
-    \view\home\index($fitness, $user);
+    \view\home\index($fitness, $user, $fitness_errors);
   } else {
     redirect('signin');
   }

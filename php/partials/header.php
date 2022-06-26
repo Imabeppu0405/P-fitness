@@ -37,6 +37,5 @@ function header() {
       </nav>
     </header>
 <?php
-Msg::flush(); 
 }
 ?>

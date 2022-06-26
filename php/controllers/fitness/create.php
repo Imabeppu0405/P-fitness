@@ -13,7 +13,6 @@ function post() {
 
   $fitness = new FitnessModel;
   $fitness->name = get_param('name', null);
-  $fitness->description = get_param('description', null);
   $fitness->level = get_param('level', null);
   $fitness->category = get_param('category', null);
 
@@ -30,12 +29,12 @@ function post() {
   }
 
   if($is_success) {
-
     Msg::push(Msg::INFO, 'フィットネスの登録に成功しました。');
     redirect(GO_HOME);
 
   } else {
-
+    $fitness->is_add = 1;
+    FitnessModel::setSession($fitness);
     Msg::push(Msg::ERROR, 'フィットネスの登録に失敗しました。');
     redirect(GO_REFERER);
 

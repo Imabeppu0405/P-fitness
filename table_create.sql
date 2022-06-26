@@ -9,7 +9,6 @@ CREATE TABLE user (
 CREATE TABLE fitness (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
-  description VARCHAR(255),
   level INT NOT NULL,
   user_id VARCHAR(20) NOT NULL,
   delete_flag BOOLEAN NOT NULL default false,

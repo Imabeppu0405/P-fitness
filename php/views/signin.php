@@ -1,7 +1,10 @@
 <?php
 namespace view\signin;
 
+use app\core\Message\Msg;
+
 function index($user_id, $password) {
+  Msg::flush();
 ?>
 <div>
   <div class="form-cont mx-auto bg-white py-4 mt-5 shadow-sm">
