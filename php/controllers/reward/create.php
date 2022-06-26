@@ -33,7 +33,8 @@ function post() {
 
   } else {
 
-    Msg::push(Msg::ERROR, '報酬の登録に失敗しました。');
+    $reward->is_create = 1;
+    RewardModel::setSession($reward);
 
   }
   redirect(GO_REFERER);

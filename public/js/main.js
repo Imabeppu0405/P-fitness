@@ -9,12 +9,12 @@ for (let i = 0; i < ranges.length; i +=1) {
   });
 }
 
-if(document.getElementById('addError') != null) {
-  const addModal = new bootstrap.Modal(document.getElementById('addFitness'));
-   addModal.show();
+if(document.getElementById('createError') != null) {
+  const createModal = new bootstrap.Modal(document.getElementById('createError').closest('.modal'));
+   createModal.show();
 }
 
 if(document.getElementById('updateError') != null) {
-  const addModal = new bootstrap.Modal(document.getElementById('updateError').closest('.modal'));
-   addModal.show();
+  const updateModal = new bootstrap.Modal(document.getElementById('updateError').closest('.modal'));
+   updateModal.show();
 }

@@ -11,46 +11,47 @@ function index($fitnesses, $user, $fitness_errors) {
     ['その他', 'others']
   ];
 
+  // 成功時のMessage表示
   if(is_null($fitness_errors)) Msg::flush();
 ?>
 <div class="d-flex justify-content-center mt-5 position-relative mx-auto w-50">
   <h1 class="mx-3">フィットネス一覧</h1>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFitness">追加</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFitness">追加</button>
   <div class="position-absolute top-0 end-0">
     <p class="h5">現在の所持金：<?php echo $user->money ?>円</p>
   </div>
 </div>
 
 <!-- 新規作成Modal -->
-<div class="modal fade" id="addFitness" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addFitnessLabel" aria-hidden="true">
+<div class="modal fade" id="createFitness" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createFitnessLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="/fitness/create" method="post">
         <div class="modal-header">
-          <h5 class="modal-title" id="addFitnessLabel">フィットネス登録</h5>
+          <h5 class="modal-title" id="createFitnessLabel">フィットネス登録</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <?php if($fitness_errors->is_add) : ?>
-            <?php $add_fitness = $fitness_errors ?>
-            <div id="addError">
+          <?php if($fitness_errors->is_create) : ?>
+            <?php $create_fitness = $fitness_errors ?>
+            <div id="createError">
               <?php Msg::flush(); ?>
             </div>
           <?php endif; ?>
           <div class="mb-4 w-75 mx-auto">
             <label for="name" class="form-label">名前</label>
-            <input type="text" class="form-control" name="name" id="name" value="<?php echo $add_fitness->name ?>">
+            <input type="text" class="form-control" name="name" id="name" value="<?php echo $create_fitness->name ?>">
           </div>
           <div class="mb-4 w-75 mx-auto">
-            <label for="range" class="form-label">レベル <span id="showRange"><?php echo $add_fitness->level ?? '10' ?></span></label>
-            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="range" value="<?php echo $add_fitness->level ?? '10' ?>">
+            <label for="range" class="form-label">レベル <span id="showRange"><?php echo $create_fitness->level ?? '10' ?></span></label>
+            <input type="range" class="form-range" min="1" max="100" step="1" name="level" id="range" value="<?php echo $create_fitness->level ?? '10' ?>">
           </div>
           <div class="w-75 mx-auto">
             <label for="arm" class="form-label">鍛える箇所</label>
             <div>
               <?php foreach($categories as $key => $category) : ?>
               <label for="<?php echo $category[1] ?>" class="m-1">
-                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if($key == $add_fitness->category ?? 0) echo 'checked' ?>>
+                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if($key == $create_fitness->category ?? 0) echo 'checked' ?>>
                 <?php echo $category[0] ?>
               </label>
               <?php endforeach; ?>
@@ -106,7 +107,7 @@ function index($fitnesses, $user, $fitness_errors) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <?php if(!$fitness_errors->is_add and $fitness_errors->id == $fitness->id) : ?>
+              <?php if(!$fitness_errors->is_create and $fitness_errors->id == $fitness->id) : ?>
                 <?php $fitness = $fitness_errors; ?>
                 <div id="updateError">
                   <?php Msg::flush(); ?>

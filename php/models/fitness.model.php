@@ -12,7 +12,7 @@ class FitnessModel extends AbstractModel
   public int $category;
   public string $user_id;
   public int $delete_flag;
-  public int $is_add;
+  public int $is_create;
   protected static $SESSION_NAME = '_fitness';
 
   public static function validateName($val)

@@ -5,6 +5,7 @@ use app\core\Auth;
 use app\core\Message\Msg;
 use db\RewardQuery;
 use model\rewardModel;
+use model\UserModel;
 use Throwable;
 
 function post() {
@@ -14,9 +15,10 @@ function post() {
   $reward->id =  get_param('id', null);
   $reward->name = get_param('name', null);
   $reward->price = get_param('price', null);
+  $user = UserModel::getSession();
 
   try {
-    $is_success = RewardQuery::update($reward);
+    $is_success = RewardQuery::update($reward, $user);
 
   } catch(Throwable $e) {
 
@@ -31,7 +33,8 @@ function post() {
 
   } else {
 
-    Msg::push(Msg::ERROR, '報酬の更新に失敗しました。');
+    $reward->is_create = 0;
+    RewardModel::setSession($reward);
 
   }
   redirect(GO_REFERER);

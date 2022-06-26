@@ -3,13 +3,13 @@
 namespace model;
 
 use app\core\Message\Msg;
-use db\RewardQuery;
 
 class rewardModel extends AbstractModel
 {
   public string $name;
   public int $price;
   public string $user_id;
+  public int $is_create;
   protected static $SESSION_NAME = '_reward';
 
   public static function validateName($val)

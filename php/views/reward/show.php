@@ -1,34 +1,43 @@
 <?php
 namespace view\reward\show;
 
-function index($rewards, $user) {
+use app\core\Message\Msg;
+
+function index($rewards, $user, $reward_errors) {
+  // 成功時のMessage表示
+  if(is_null($reward_errors)) Msg::flush();
 ?>
 <div class="d-flex justify-content-center mt-5 position-relative w-50 mx-auto">
   <h1 class="mx-3">報酬一覧</h1>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReward">追加</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReward">追加</button>
   <div class="position-absolute top-0 end-0">
     <p class="h5">現在の所持金：<?php echo $user->money ?>円</p>
   </div>
 </div>
 
 <!-- 新規作成Modal -->
-<div class="modal fade" id="addReward" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addRewardLabel" aria-hidden="true">
+<div class="modal fade" id="createReward" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createRewardLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="/reward/create" method="post">
         <div class="modal-header">
-          <h5 class="modal-title" id="addRewardLabel">報酬登録</h5>
+          <h5 class="modal-title" id="createRewardLabel">報酬登録</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        
+          <?php if($reward_errors->is_create) : ?>
+            <?php $create_reward = $reward_errors ?>
+            <div id="createError">
+              <?php Msg::flush(); ?>
+            </div>
+          <?php endif; ?>
           <div class="mb-4 w-75 mx-auto">
             <label for="name" class="form-label">名前</label>
-            <input type="text" class="form-control" name="name" id="name">
+            <input type="text" class="form-control" name="name" id="name" value="<?php echo $create_reward->name ?>">
           </div>
           <div class="w-75 mx-auto">
-            <label for="range" class="form-label">値段 <span id="showRange">1000</span></label>
-            <input type="range" class="form-range" min="100" max="10000" step="100" name="price" id="range" value="1000">
+            <label for="range" class="form-label">値段 <span id="showRange"><?php echo $create_reward->price ?? '1000' ?></span></label>
+            <input type="range" class="form-range" min="100" max="10000" step="100" name="price" id="range" value="<?php echo $create_reward->price ?? '1000' ?>">
           </div>
           <div class="text-center mt-5">
             
@@ -74,7 +83,12 @@ function index($rewards, $user) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            
+              <?php if(!$reward_errors->is_create and $reward_errors->id == $reward->id) : ?>
+                <?php $reward = $reward_errors ?>
+                <div id="updateError">
+                  <?php Msg::flush(); ?>
+                </div>
+              <?php endif; ?>
               <div class="mb-4 w-75 mx-auto">
                 <label for="name<?php echo $key ?>" class="form-label">名前</label>
                 <input type="text" class="form-control" name="name" id="name<?php echo $key ?>" value="<?php echo $reward->name ?>">

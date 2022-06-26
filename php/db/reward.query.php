@@ -16,6 +16,7 @@ class RewardQuery
       Msg::push(Msg::ERROR, '報酬はすでに登録済みです');
       return false;
     }
+    
     $db = new DataSource;
     $sql = 'insert into reward(name, price, user_id) values (:name, :price, :user_id)';
 
@@ -26,8 +27,17 @@ class RewardQuery
     ]);
   }
 
-  public static function update($reward)
+  public static function update($reward, $user)
   {
+    if (!($reward->isValidName() * $reward->isValidPrice())) {
+      return false;
+    }
+
+    if (!self::isUniqueNameExceptId($reward->name, $user->user_id, $reward->id)) {
+      Msg::push(Msg::ERROR, '報酬はすでに登録済みです');
+      return false;
+    }
+
     $db = new DataSource;
     $sql = 'update reward set name = :name, price = :price where id = :id';
 
@@ -70,6 +80,24 @@ class RewardQuery
     $result = $db->select($sql, [
       ':name'    => $name,
       ':user_id' => $user_id,
+    ]);
+    
+    if ($result[0]['count'] === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private function isUniqueNameExceptId($name, $user_id, $id)
+  {
+    $db = new DataSource;
+    $sql = 'SELECT COUNT(id) as count FROM reward WHERE name = :name and delete_flag = 0 and user_id = :user_id and id != :id';
+
+    $result = $db->select($sql, [
+      ':name'    => $name,
+      ':user_id' => $user_id,
+      ':id'      => $id,
     ]);
     
     if ($result[0]['count'] === 0) {

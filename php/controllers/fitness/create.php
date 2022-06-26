@@ -33,9 +33,8 @@ function post() {
     redirect(GO_HOME);
 
   } else {
-    $fitness->is_add = 1;
+    $fitness->is_create = 1;
     FitnessModel::setSession($fitness);
-    Msg::push(Msg::ERROR, 'フィットネスの登録に失敗しました。');
     redirect(GO_REFERER);
 
   }

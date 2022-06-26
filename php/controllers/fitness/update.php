@@ -35,9 +35,8 @@ function post() {
 
   } else {
 
-    $fitness->is_add = 0;
+    $fitness->is_create = 0;
     FitnessModel::setSession($fitness);
-    Msg::push(Msg::ERROR, 'フィットネスの更新に失敗しました。');
     redirect(GO_REFERER);
 
   }
