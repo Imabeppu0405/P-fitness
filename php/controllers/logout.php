@@ -6,7 +6,7 @@ use app\core\Message\Msg;
 
 function get() {
 
-  if(Auth::logout()) {
+  if (Auth::logout()) {
     
     Msg::push(Msg::INFO, 'ログアウトに成功しました。');
 

@@ -7,12 +7,18 @@ function get_param($key, $default_val, $is_post = true)
 
 function redirect($path)
 {
-  if($path === GO_HOME) {
+  if ($path === GO_HOME) {
+
     $path = get_url('');
-  } else if($path === GO_REFERER) {
+
+  } else if ($path === GO_REFERER) {
+
     $path = $_SERVER['HTTP_REFERER'];
+
   } else {
+
     $path = get_url($path);
+    
   }
 
   header("Location: {$path}");
@@ -28,4 +34,29 @@ function the_url($path)
 function get_url($path)
 {
   return '/' . trim($path, '/');
+}
+
+function escape($data)
+{
+  if (is_array($data)) {
+
+    foreach ($data as $key => $val) {
+      $data[$key] = escape($val);
+    }
+
+    return $data;
+
+  } else if (is_object($data)) {
+
+    foreach ($data as $key => $val) {
+      $data->$key = escape($val);
+    }
+
+    return $data;
+
+  } else {
+
+    return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+
+  }
 }

@@ -12,29 +12,36 @@ class Auth
   public static function login($user_id, $password)
   {
     try {
-      if(!(UserModel::validateId($user_id) * UserModel::validatePwd($password))) {
+      if (!(UserModel::validateId($user_id) * UserModel::validatePwd($password))) {
         return false;
       }
-      $is_success = false;
 
+      $is_success = false;
       $user = UserQuery::fetchById($user_id);
     
-      if(!empty($user)) { 
+      if (!empty($user)) { 
         if (password_verify($password, $user->password)) {
+
           $is_success = true;
           $user = UserQuery::fetchById($user->user_id);
           UserModel::setSession($user);
+
         } else {
+
           Msg::push(Msg::ERROR, 'パスワードが一致しません');
+
         }
       } else {
-        Msg::push(Msg::ERROR, 'ユーザーが見つかりません');
-      }
 
+        Msg::push(Msg::ERROR, 'ユーザーが見つかりません');
+
+      }
     } catch (Throwable $e) {
+
       $is_success = false;
       Msg::push(Msg::DEBUG, $e->getMessage());
       Msg::push(Msg::ERROR, 'ログイン処理でエラーが発生しました。');
+
     }
 
     return $is_success;
@@ -50,19 +57,20 @@ class Auth
       }
 
       if (!$user->isUniqueId()) {
+
         Msg::push(Msg::ERROR, 'ユーザーIDはすでに登録済みです');
         return false;
+
       }
 
       $is_success = false;
-
-      # TODO: 存在チェック
-
       $is_success = UserQuery::insert($user);
 
-      if($is_success) {
+      if ($is_success) {
+
         $user = UserQuery::fetchById($user->user_id);
         UserModel::setSession($user);
+
       }
 
     } catch (Throwable $e) {
@@ -70,6 +78,7 @@ class Auth
       $is_success = false;
       Msg::push(Msg::DEBUG, $e->getMessage());
       Msg::push(Msg::ERROR, 'ユーザー登録でエラーが発生しました');
+
     }
 
     return $is_success;
@@ -102,17 +111,23 @@ class Auth
 
     }
 
-    if(isset($user->money)) {
+    if (isset($user->money)) {
+
       return true;
+
     } else {
+
       return false;
+
     }
   }
 
   public static function requireLogin() {
     if (!static::isLogin()) {
+
       Msg::push(Msg::ERROR, 'ログインしてください');
       redirect('signin');
+      
     }
   }
 }

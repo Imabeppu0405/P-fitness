@@ -18,6 +18,7 @@ function post() {
   $user = UserModel::getSession();
 
   try {
+    
     $is_success = RewardQuery::update($reward, $user);
 
   } catch(Throwable $e) {
@@ -27,7 +28,7 @@ function post() {
 
   }
 
-  if($is_success) {
+  if ($is_success) {
 
     Msg::push(Msg::INFO, '報酬の更新に成功しました。');
 
@@ -37,5 +38,6 @@ function post() {
     RewardModel::setSession($reward);
 
   }
+
   redirect(GO_REFERER);
 }

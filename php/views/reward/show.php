@@ -4,8 +4,11 @@ namespace view\reward\show;
 use app\core\Message\Msg;
 
 function index($rewards, $user, $reward_errors) {
+  $rewards = escape($rewards);
+  $user = escape($user);
+  $reward_errors = escape($reward_errors);
   // 成功時のMessage表示
-  if(is_null($reward_errors)) Msg::flush();
+  if (is_null($reward_errors)) Msg::flush();
 ?>
 <div class="d-flex justify-content-center mt-5 w-50 mx-auto">
   <h1 class="mx-3">報酬一覧</h1>
@@ -13,7 +16,7 @@ function index($rewards, $user, $reward_errors) {
 </div>
 <p class="h5 text-center m-3">現在の所持金：<?php echo $user->money ?>円</p>
 
-<?php if(empty($rewards)) : ?>
+<?php if (empty($rewards)) : ?>
   <p class="text-center">現在報酬は登録されていません。</p>
 <?php endif; ?>
 
@@ -27,7 +30,7 @@ function index($rewards, $user, $reward_errors) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <?php if($reward_errors->is_create) : ?>
+          <?php if ($reward_errors->is_create) : ?>
             <?php $create_reward = $reward_errors ?>
             <div id="createError">
               <?php Msg::flush(); ?>
@@ -86,7 +89,7 @@ function index($rewards, $user, $reward_errors) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <?php if(!$reward_errors->is_create and $reward_errors->id == $reward->id) : ?>
+              <?php if (!$reward_errors->is_create and $reward_errors->id == $reward->id) : ?>
                 <?php $reward = $reward_errors ?>
                 <div id="updateError">
                   <?php Msg::flush(); ?>

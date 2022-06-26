@@ -44,7 +44,7 @@ function post()
     
   }
 
-  if($is_success) {
+  if ($is_success) {
 
     Msg::push(Msg::INFO, 'この調子！');
 

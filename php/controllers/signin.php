@@ -8,11 +8,15 @@ use model\UserModel;
 
 function get() {
   if (!Auth::isLogin()) {
+
     $user = UserModel::getSession();
     UserModel::clearSession();
     \view\signin\index($user->user_id, $user->password);
+
   } else {
+
     redirect('/');
+    
   }
 }
 
@@ -21,12 +25,16 @@ function post() {
   $user->user_id = get_param('user_id', '');
   $user->password = get_param('password', '');
 
-  if(Auth::login($user->user_id, $user->password)) {
+  if (Auth::login($user->user_id, $user->password)) {
+
     $user = UserModel::getSession();
     Msg::push(Msg::INFO, "{$user->nickname}さん、ようこそ");
     redirect(GO_HOME);
+
   } else {
+
     UserModel::setSession($user);
     redirect(GO_REFERER);
+
   }
 }

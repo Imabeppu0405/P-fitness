@@ -12,9 +12,12 @@ class Msg extends AbstractModel {
   protected static $SESSION_NAME = '_msg';
 
   public static function push($type, $msg) {
-    if(!is_array(static::getSession())) {
+    if (!is_array(static::getSession())) {
+
       static::init();
+
     }
+
     $msgs = static::getSession();
     $msgs[$type][] = $msg;
     static::setSession($msgs);
@@ -22,12 +25,14 @@ class Msg extends AbstractModel {
 
   public static function flush() {
     try {
+
       $msgs_with_types = static::getSessionAndFlush() ?? [];
 
       echo '<div id="messages">';
 
       foreach($msgs_with_types as $type => $msgs) {
-        if($type === static::DEBUG && !DEBUG) {
+
+        if ($type === static::DEBUG && !DEBUG) {
           continue;
         }
 
@@ -36,13 +41,16 @@ class Msg extends AbstractModel {
         foreach($msgs as $msg) {
           
           echo "<div class='alert {$color}'>{$msg}</div>";
+
         }
       }
 
       echo '</div>';
     } catch (Throwable $e) {
+
       Msg::push(Msg::DEBUG, $e->getMessage());
       Msg::push(Msg::DEBUG, 'Msg:flush()での例外です。');
+
     }
   }
 

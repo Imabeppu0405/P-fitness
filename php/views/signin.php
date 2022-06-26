@@ -4,6 +4,8 @@ namespace view\signin;
 use app\core\Message\Msg;
 
 function index($user_id, $password) {
+  $user_id = escape($user_id);
+  $password = escape($password);
   Msg::flush();
 ?>
 <div>

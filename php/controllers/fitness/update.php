@@ -19,6 +19,7 @@ function post() {
   $user = UserModel::getSession();
 
   try {
+    
     $is_success = FitnessQuery::update($fitness, $user);
 
   } catch(Throwable $e) {
@@ -28,7 +29,7 @@ function post() {
 
   }
 
-  if($is_success) {
+  if ($is_success) {
 
     Msg::push(Msg::INFO, 'フィットネスの更新に成功しました。');
     redirect(GO_HOME);

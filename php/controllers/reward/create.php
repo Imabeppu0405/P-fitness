@@ -27,7 +27,7 @@ function post() {
 
   }
 
-  if($is_success) {
+  if ($is_success) {
 
     Msg::push(Msg::INFO, '報酬の登録に成功しました。');
 
@@ -37,6 +37,6 @@ function post() {
     RewardModel::setSession($reward);
 
   }
+
   redirect(GO_REFERER);
-  
 } 

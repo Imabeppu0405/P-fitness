@@ -8,10 +8,10 @@ use Throwable;
 
 function post() {
   Auth::requireLogin();
-
   $id =  get_param('id', null);
 
   try {
+
     $is_success = FitnessQuery::delete($id);
 
   } catch(Throwable $e) {
@@ -21,7 +21,7 @@ function post() {
 
   }
 
-  if($is_success) {
+  if ($is_success) {
 
     Msg::push(Msg::INFO, '削除しました。');
     redirect(GO_HOME);

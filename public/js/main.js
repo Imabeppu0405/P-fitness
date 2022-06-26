@@ -9,12 +9,12 @@ for (let i = 0; i < ranges.length; i +=1) {
   });
 }
 
-if(document.getElementById('createError') != null) {
+if (document.getElementById('createError') != null) {
   const createModal = new bootstrap.Modal(document.getElementById('createError').closest('.modal'));
    createModal.show();
 }
 
-if(document.getElementById('updateError') != null) {
+if (document.getElementById('updateError') != null) {
   const updateModal = new bootstrap.Modal(document.getElementById('updateError').closest('.modal'));
    updateModal.show();
 }

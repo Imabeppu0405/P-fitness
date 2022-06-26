@@ -4,7 +4,10 @@ namespace view\signup;
 use app\core\Message\Msg;
 
 function index($user_id, $password, $nickname) {
-  Msg::flush(); 
+  $user_id = escape($user_id);
+  $password = escape($password);
+  $nickname = escape($nickname);
+  Msg::flush();
 ?>
 <div class="form-cont mx-auto bg-white py-4 mt-5 shadow-sm">
     <div class="text-center">

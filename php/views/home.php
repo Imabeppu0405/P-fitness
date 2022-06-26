@@ -4,6 +4,9 @@ namespace view\home;
 use app\core\Message\Msg;
 
 function index($fitnesses, $user, $fitness_errors) {
+  $fitnesses = escape($fitnesses);
+  $user = escape($user);
+  $fitness_errors = escape($fitness_errors);
   $categories = [
     ['腕', 'arm'], 
     ['腹', 'abdmen'],
@@ -12,7 +15,7 @@ function index($fitnesses, $user, $fitness_errors) {
   ];
 
   // 成功時のMessage表示
-  if(is_null($fitness_errors)) Msg::flush();
+  if (is_null($fitness_errors)) Msg::flush();
 ?>
 <div class="d-flex justify-content-center mt-5 mx-auto w-50">
   <h1 class="mx-3">フィットネス一覧</h1>
@@ -20,7 +23,7 @@ function index($fitnesses, $user, $fitness_errors) {
 </div>
 <p class="h5 text-center m-3">現在の所持金：<?php echo $user->money ?>円</p>
 
-<?php if(empty($fitnesses)) : ?>
+<?php if (empty($fitnesses)) : ?>
   <p class="text-center">現在フィットネスは登録されていません。</p>
 <?php endif; ?>
 
@@ -34,7 +37,7 @@ function index($fitnesses, $user, $fitness_errors) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <?php if($fitness_errors->is_create) : ?>
+          <?php if ($fitness_errors->is_create) : ?>
             <?php $create_fitness = $fitness_errors ?>
             <div id="createError">
               <?php Msg::flush(); ?>
@@ -54,7 +57,7 @@ function index($fitnesses, $user, $fitness_errors) {
             <div>
               <?php foreach($categories as $key => $category) : ?>
               <label for="<?php echo $category[1] ?>" class="m-1">
-                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if($key == $create_fitness->category ?? 0) echo 'checked' ?>>
+                <input type="radio" name="category" id="<?php echo $category[1] ?>" value="<?php echo $key ?>" <?php if ($key == $create_fitness->category ?? 0) echo 'checked' ?>>
                 <?php echo $category[0] ?>
               </label>
               <?php endforeach; ?>
@@ -110,7 +113,7 @@ function index($fitnesses, $user, $fitness_errors) {
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <?php if(!$fitness_errors->is_create and $fitness_errors->id == $fitness->id) : ?>
+              <?php if (!$fitness_errors->is_create and $fitness_errors->id == $fitness->id) : ?>
                 <?php $fitness = $fitness_errors; ?>
                 <div id="updateError">
                   <?php Msg::flush(); ?>
@@ -130,7 +133,7 @@ function index($fitnesses, $user, $fitness_errors) {
                 <div>
                   <?php foreach($categories as $categry_key => $category) : ?>
                   <label for="<?php echo $category[1] ?>" class="m-1">
-                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>" <?php if($categry_key ==  $fitness->category) echo 'checked' ?>>
+                    <input type="radio" name="category" id="<?php echo $category[1] . $key ?>" value="<?php echo $categry_key ?>" <?php if ($categry_key ==  $fitness->category) echo 'checked' ?>>
                     <?php echo $category[0] ?>
                   </label>
                   <?php endforeach; ?>

@@ -47,7 +47,7 @@ function post()
     
   }
 
-  if($is_success) {
+  if ($is_success) {
 
     Msg::push(Msg::INFO, '報酬を獲得しました。');
 
@@ -56,5 +56,6 @@ function post()
     Msg::push(Msg::ERROR, 'moneyの更新に失敗しました。');
 
   }
+  
   redirect(GO_REFERER);
 }
