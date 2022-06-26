@@ -4,9 +4,6 @@ namespace view\home;
 use app\core\Message\Msg;
 
 function index($fitnesses, $user, $fitness_errors) {
-  $fitnesses = escape($fitnesses);
-  $user = escape($user);
-  $fitness_errors = escape($fitness_errors);
   $categories = [
     ['腕', 'arm'], 
     ['腹', 'abdmen'],
@@ -15,7 +12,11 @@ function index($fitnesses, $user, $fitness_errors) {
   ];
 
   // 成功時のMessage表示
-  if (is_null($fitness_errors)) Msg::flush();
+  if(is_null($fitness_errors)) Msg::flush();
+
+  $fitnesses = escape($fitnesses);
+  $user = escape($user);
+  $fitness_errors = escape($fitness_errors);
 ?>
 <div class="d-flex justify-content-center mt-5 mx-auto w-50">
   <h1 class="mx-3">フィットネス一覧</h1>

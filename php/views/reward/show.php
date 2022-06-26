@@ -4,11 +4,11 @@ namespace view\reward\show;
 use app\core\Message\Msg;
 
 function index($rewards, $user, $reward_errors) {
+  // 成功時のMessage表示
+  if (is_null($reward_errors)) Msg::flush();
   $rewards = escape($rewards);
   $user = escape($user);
   $reward_errors = escape($reward_errors);
-  // 成功時のMessage表示
-  if (is_null($reward_errors)) Msg::flush();
 ?>
 <div class="d-flex justify-content-center mt-5 w-50 mx-auto">
   <h1 class="mx-3">報酬一覧</h1>
