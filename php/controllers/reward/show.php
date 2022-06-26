@@ -12,10 +12,12 @@ use Throwable;
 
 function get() {
   if (Auth::isLogin()) {
-
   $user = UserModel::getSession();
+  
+  # セッションからエラー時の入力値を取得
   $rewards = RewardQuery::fetchById($user->user_id);
   $reward_errors = RewardModel::getSession();
+
   RewardModel::clearSession();
   \view\reward\show\index($rewards, $user, $reward_errors);
 
@@ -56,6 +58,6 @@ function post()
     Msg::push(Msg::ERROR, 'moneyの更新に失敗しました。');
 
   }
-  
+
   redirect(GO_REFERER);
 }

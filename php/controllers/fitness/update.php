@@ -19,7 +19,7 @@ function post() {
   $user = UserModel::getSession();
 
   try {
-    
+
     $is_success = FitnessQuery::update($fitness, $user);
 
   } catch(Throwable $e) {
@@ -36,6 +36,7 @@ function post() {
 
   } else {
 
+    # エラーの場合は入力値をセッションに保存
     $fitness->is_create = 0;
     FitnessModel::setSession($fitness);
     redirect(GO_REFERER);

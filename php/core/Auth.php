@@ -111,6 +111,7 @@ class Auth
 
     }
 
+    # 新規登録・ログインエラー時にもuserセッションに値を保存するため、登録後にしか保存されないmoneyで判定
     if (isset($user->money)) {
 
       return true;
@@ -127,7 +128,7 @@ class Auth
 
       Msg::push(Msg::ERROR, 'ログインしてください');
       redirect('signin');
-      
+
     }
   }
 }

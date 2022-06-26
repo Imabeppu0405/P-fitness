@@ -18,7 +18,7 @@ function post() {
   $user = UserModel::getSession();
 
   try {
-    
+
     $is_success = RewardQuery::update($reward, $user);
 
   } catch(Throwable $e) {
@@ -34,6 +34,7 @@ function post() {
 
   } else {
 
+    # エラーの場合は入力値をセッションに保存
     $reward->is_create = 0;
     RewardModel::setSession($reward);
 

@@ -20,17 +20,22 @@ class FitnessModel extends AbstractModel
     $res = true;
 
     if (empty($val)) {
+
       Msg::push(Msg::ERROR, '名前を入力してください');
       $res = false;
+
     } else if (mb_strlen($val) > 10) {
+
       Msg::push(Msg::ERROR, '名前は10文字以下で入力してください');
       $res = false;
+
     }
 
     return $res;
   }
 
-  public function isValidName() {
+  public function isValidName() 
+  {
     return static::validateName($this->name);
   }
 
@@ -39,17 +44,22 @@ class FitnessModel extends AbstractModel
     $res = true;
 
     if (empty($val)) {
+
       Msg::push(Msg::ERROR, 'レベルを入力してください');
       $res = false;
+
     } else if ($val > 100) {
+
       Msg::push(Msg::ERROR, 'レベルは100以下で入力してください');
       $res = false;
+
     }
 
     return $res;
   }
 
-  public function isValidLevel() {
+  public function isValidLevel() 
+  {
     return static::validateLevel($this->level);
   }
 }

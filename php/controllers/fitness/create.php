@@ -34,7 +34,7 @@ function post() {
     redirect(GO_HOME);
 
   } else {
-    
+    # エラーの場合は入力値をセッションに保存
     $fitness->is_create = 1;
     FitnessModel::setSession($fitness);
     redirect(GO_REFERER);

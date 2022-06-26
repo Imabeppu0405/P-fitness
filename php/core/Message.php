@@ -32,6 +32,7 @@ class Msg extends AbstractModel {
 
       foreach($msgs_with_types as $type => $msgs) {
 
+        # 本番環境では、デバックエラーは表示させない
         if ($type === static::DEBUG && !DEBUG) {
           continue;
         }

@@ -30,11 +30,13 @@ class UserModel extends AbstractModel {
     return $res;
   }
 
-  public function isValidId() {
+  public function isValidId() 
+  {
     return static::validateId($this->user_id);
   }
 
-  public function isUniqueId() {
+  public function isUniqueId() 
+  {
     return UserQuery::isUniqueId($this->user_id);
   }
 

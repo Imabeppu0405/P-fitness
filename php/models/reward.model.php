@@ -17,17 +17,22 @@ class rewardModel extends AbstractModel
     $res = true;
 
     if (empty($val)) {
+
       Msg::push(Msg::ERROR, '名前を入力してください');
       $res = false;
+
     } else if (mb_strlen($val) > 10) {
+
       Msg::push(Msg::ERROR, '名前は10文字以下で入力してください');
       $res = false;
+
     }
 
     return $res;
   }
 
-  public function isValidName() {
+  public function isValidName() 
+  {
     return static::validateName($this->name);
   }
 
@@ -36,17 +41,22 @@ class rewardModel extends AbstractModel
     $res = true;
 
     if (empty($val)) {
+
       Msg::push(Msg::ERROR, 'レベルを入力してください');
       $res = false;
+
     } else if ($val < 100 and $val > 10000) {
+
       Msg::push(Msg::ERROR, 'レベルは100以上1000以下で入力してください');
       $res = false;
+
     }
 
     return $res;
   }
 
-  public function isValidPrice() {
+  public function isValidPrice() 
+  {
     return static::validateprice($this->price);
   }
 }

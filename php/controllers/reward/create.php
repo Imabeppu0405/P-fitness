@@ -33,6 +33,7 @@ function post() {
 
   } else {
 
+    # エラーの場合は入力値をセッションに保存
     $reward->is_create = 1;
     RewardModel::setSession($reward);
 

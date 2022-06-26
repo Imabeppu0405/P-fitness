@@ -8,6 +8,7 @@ use Throwable;
 
 function post() {
   Auth::requireLogin();
+  
   $id =  get_param('id', null);
 
   try {
