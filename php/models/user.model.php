@@ -12,6 +12,21 @@ class UserModel extends AbstractModel {
 
   protected static $SESSION_NAME = '_user';
 
+  public static function setAuthentication() 
+  {
+    $_SESSION['_isAutenticated'] = true;
+  }
+
+  public static function clearAuthentication() 
+  {
+    $_SESSION['_isAutenticated'] = false;
+  }
+
+  public static function isAuthenticated() 
+  {
+    return $_SESSION['_isAutenticated'];
+  }
+
   public static function validateId($val)
   {
     $res = true;

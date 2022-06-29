@@ -1,7 +1,6 @@
 <?php
 namespace partials;
 
-use app\core\Message\Msg;
 use app\core\Auth;
 
 function header() {

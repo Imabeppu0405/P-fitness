@@ -25,6 +25,7 @@ class Auth
           $is_success = true;
           $user = UserQuery::fetchById($user->user_id);
           UserModel::setSession($user);
+          UserModel::setAuthentication();
 
         } else {
 
@@ -88,6 +89,7 @@ class Auth
     try {
 
       UserModel::clearSession();
+      UserModel::clearAuthentication();
 
     } catch (Throwable $e) {
 
@@ -100,27 +102,8 @@ class Auth
   }
 
   public static function isLogin() {
-    try {
 
-      $user = UserModel::getSession();
-
-    } catch(Throwable $e) {
-
-      Msg::push(Msg::DEBUG, $e->getMessage());
-      return false;
-
-    }
-
-    # 新規登録・ログインエラー時にもuserセッションに値を保存するため、登録後にしか保存されないmoneyで判定
-    if (isset($user->money)) {
-
-      return true;
-
-    } else {
-
-      return false;
-
-    }
+    return UserModel::isAuthenticated();
   }
 
   public static function requireLogin() {
