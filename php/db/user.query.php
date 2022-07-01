@@ -1,6 +1,7 @@
 <?php
 namespace db;
 
+use app\core\Message\Msg;
 use db\DataSource;
 use model\UserModel;
 
@@ -46,14 +47,18 @@ class UserQuery {
     return $result;
   }
 
-  public static function subtractMoney($user_id, $subtract)
+  public static function subtractMoney($user, $subtract)
   {
+    if ($user->money < $subtract) {
+      Msg::push(Msg::ERROR, '残高不足のため購入できません');
+      return false;
+    }
     $db = DataSource::getInstance();
     $sql = 'UPDATE user SET money = money - :subtract WHERE user_id = :user_id';
 
     $result = $db->execute($sql, [
       ':subtract' => $subtract,
-      ':user_id'  => $user_id,
+      ':user_id'  => $user->user_id,
     ]);
 
     return $result;

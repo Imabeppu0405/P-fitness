@@ -28,10 +28,9 @@ function post()
   try {
 
     $user = UserModel::getSession();
-    $is_success = UserQuery::subtractMoney($user->user_id, $price);
+    $is_success = UserQuery::subtractMoney($user, $price);
     $user = UserQuery::fetchById($user->user_id);
     UserModel::setSession($user);
-
 
   } catch (Throwable $e) {
 
@@ -46,7 +45,7 @@ function post()
 
   } else {
 
-    Msg::push(Msg::ERROR, 'moneyの更新に失敗しました。');
+    Msg::push(Msg::ERROR, '金額の更新に失敗しました。');
 
   }
 
