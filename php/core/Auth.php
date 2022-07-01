@@ -71,6 +71,7 @@ class Auth
 
         $user = UserQuery::fetchById($user->user_id);
         UserModel::setSession($user);
+        UserModel::setAuthentication();
 
       }
 

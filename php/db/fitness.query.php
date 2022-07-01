@@ -17,7 +17,7 @@ class FitnessQuery
       return false;
     }
 
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'insert into fitness(name, level, category, user_id) values (:name, :level, :category, :user_id)';
 
     return $db->execute($sql, [
@@ -39,7 +39,7 @@ class FitnessQuery
       return false;
     }
 
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'update fitness set name = :name, level = :level, category = :category where id = :id';
 
     return $db->execute($sql, [
@@ -52,7 +52,7 @@ class FitnessQuery
 
   public static function delete($id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'update fitness set delete_flag = 1 where id = :id';
 
     return $db->execute($sql, [
@@ -62,7 +62,7 @@ class FitnessQuery
 
   public static function fetchById($user_id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = '
     select * from fitness where user_id = :user_id and delete_flag = 0';
 
@@ -76,7 +76,7 @@ class FitnessQuery
 
   private function isUniqueName($name, $user_id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(id) as count FROM fitness WHERE name = :name and delete_flag = 0 and user_id = :user_id';
 
     $result = $db->select($sql, [
@@ -93,7 +93,7 @@ class FitnessQuery
 
   private function isUniqueNameExceptId($name, $user_id, $id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(id) as count FROM fitness WHERE name = :name and delete_flag = 0 and user_id = :user_id and id != :id';
 
     $result = $db->select($sql, [

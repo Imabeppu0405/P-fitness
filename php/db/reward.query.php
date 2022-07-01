@@ -17,7 +17,7 @@ class RewardQuery
       return false;
     }
     
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'insert into reward(name, price, user_id) values (:name, :price, :user_id)';
 
     return $db->execute($sql, [
@@ -38,7 +38,7 @@ class RewardQuery
       return false;
     }
 
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'update reward set name = :name, price = :price where id = :id';
 
     return $db->execute($sql, [
@@ -50,7 +50,7 @@ class RewardQuery
 
   public static function delete($id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'update reward set delete_flag = 1 where id = :id';
 
     return $db->execute($sql, [
@@ -60,7 +60,7 @@ class RewardQuery
 
   public static function fetchById($user_id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = '
     select * from reward where user_id = :user_id and delete_flag = 0';
 
@@ -74,7 +74,7 @@ class RewardQuery
 
   private function isUniqueName($name, $user_id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(id) as count FROM reward WHERE name = :name and delete_flag = 0 and user_id = :user_id';
 
     $result = $db->select($sql, [
@@ -91,7 +91,7 @@ class RewardQuery
 
   private function isUniqueNameExceptId($name, $user_id, $id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(id) as count FROM reward WHERE name = :name and delete_flag = 0 and user_id = :user_id and id != :id';
 
     $result = $db->select($sql, [

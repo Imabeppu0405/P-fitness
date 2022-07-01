@@ -7,7 +7,7 @@ use model\UserModel;
 class UserQuery {
   public static function fetchById($user_id) 
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'select * from user where user_id = :user_id;';
 
     $result = $db->selectOne($sql, [
@@ -19,7 +19,7 @@ class UserQuery {
 
   public static function insert($user)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'insert into user(user_id, password, nickname) values (:user_id, :password, :nickname)';
 
     $user->password = password_hash($user->password, PASSWORD_DEFAULT);
@@ -35,7 +35,7 @@ class UserQuery {
 
   public static function addMoney($user_id, $add)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'UPDATE user SET money = money + :add WHERE user_id = :user_id';
 
     $result = $db->execute($sql, [
@@ -48,7 +48,7 @@ class UserQuery {
 
   public static function subtractMoney($user_id, $subtract)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'UPDATE user SET money = money - :subtract WHERE user_id = :user_id';
 
     $result = $db->execute($sql, [
@@ -61,7 +61,7 @@ class UserQuery {
 
   public static function isUniqueId($user_id)
   {
-    $db = new DataSource;
+    $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(user_id) as count FROM user WHERE user_id = :user_id';
 
     $result = $db->select($sql, [':user_id' => $user_id ]);
