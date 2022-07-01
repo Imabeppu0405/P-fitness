@@ -28,7 +28,17 @@ class Router
 
         require_once SOURCE_BASE . "views/404.php";
         return;
+      }
 
+      # ログインしていない時はsignページ、ログインしている時はhomeページに飛ばす
+      if (in_array($path, NOT_AUTHENTICATED_PAGES)) {
+        if (Auth::isLogin()) {
+          redirect('/');
+        }
+      } else {
+        if (!Auth::isLogin()) {
+          redirect('signin');
+        }
       }
 
       require_once($targetFile);

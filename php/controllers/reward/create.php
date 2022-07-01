@@ -9,8 +9,6 @@ use model\UserModel;
 use Throwable;
 
 function post() {
-  Auth::requireLogin();
-
   $reward = new RewardModel;
   $reward->name = get_param('name', null);
   $reward->price = get_param('price', null);

@@ -12,7 +12,6 @@ use Throwable;
 
 function get()
 {
-  if (Auth::isLogin()) {
     $user = UserModel::getSession();
 
     # セッションからエラー時の入力値を取得
@@ -21,18 +20,10 @@ function get()
 
     $fitness = FitnessQuery::fetchById($user->user_id);
     \view\home\index($fitness, $user, $fitness_errors);
-
-  } else {
-
-    redirect('signin');
-    
-  }
 }
 
 function post()
 {
-  Auth::requireLogin();
-
   $level = get_param('level', null);
 
   try {

@@ -106,13 +106,4 @@ class Auth
 
     return UserModel::isAuthenticated();
   }
-
-  public static function requireLogin() {
-    if (!static::isLogin()) {
-
-      Msg::push(Msg::ERROR, 'ログインしてください');
-      redirect('signin');
-
-    }
-  }
 }

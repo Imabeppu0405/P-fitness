@@ -11,7 +11,6 @@ use model\UserModel;
 use Throwable;
 
 function get() {
-  if (Auth::isLogin()) {
   $user = UserModel::getSession();
   
   # セッションからエラー時の入力値を取得
@@ -20,18 +19,10 @@ function get() {
 
   RewardModel::clearSession();
   \view\reward\show\index($rewards, $user, $reward_errors);
-
-  } else {
-
-    redirect('signin');
-    
-  }
 }
 
 function post()
 {
-  Auth::requireLogin();
-
   $price = (int)get_param('price', null);
   
   try {

@@ -7,17 +7,10 @@ use app\core\Message\Msg;
 use model\UserModel;
 
 function get() {
-  if (!Auth::isLogin()) {
     # セッションからエラー時の入力値を取得
     $user = UserModel::getSession();
     UserModel::clearSession();
     \view\signin\index($user->user_id, $user->password);
-
-  } else {
-
-    redirect('/');
-
-  }
 }
 
 function post() {

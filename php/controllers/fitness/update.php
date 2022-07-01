@@ -9,8 +9,6 @@ use model\UserModel;
 use Throwable;
 
 function post() {
-  Auth::requireLogin();
-
   $fitness = new FitnessModel;
   $fitness->id =  get_param('id', null);
   $fitness->name = get_param('name', null);
