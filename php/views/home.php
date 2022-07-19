@@ -97,7 +97,7 @@ function index($fitnesses, $user, $fitness_errors) {
       <h5 class="card-title h2 text-center border-bottom"><?php echo $fitness->name ?></h5>
       <p class="card-text h5 text-center <?php echo $categories[$fitness->category][1] ?>"><?php echo $fitness->level ?>p</p>
     </div>
-    <form action="<?php echo CURRENT_URI ?>" method="post">
+    <form action="<?php the_url('/money/add') ?>" method="post">
       <input type="hidden" name="level" value="<?php echo $fitness->level ?>">
       <div class="text-center mb-3">
         <button type="submit" class="btn btn-dark">Complete</button>

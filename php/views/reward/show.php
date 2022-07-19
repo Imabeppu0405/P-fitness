@@ -72,7 +72,7 @@ function index($rewards, $user, $reward_errors) {
     <div class="card-body">
       <h5 class="card-title text-center border-bottom"><?php echo $reward->name ?></h5>
     </div>
-    <form action="<?php echo CURRENT_URI ?>" method="post">
+    <form action="<?php the_url('/money/subtract') ?>" method="post">
       <input type="hidden" name="price" value="<?php echo $reward->price ?>">
       <div class="text-center mb-3">
         <button type="submit" class="btn btn-dark"><?php echo $reward->price ?>円</button>
