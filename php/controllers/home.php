@@ -5,6 +5,7 @@ namespace controller\home;
 use db\FitnessQuery;
 use model\FitnessModel;
 use model\UserModel;
+use app\core\View;
 
 function get()
 {
@@ -14,6 +15,19 @@ function get()
     $fitness_errors = FitnessModel::getSession();
     FitnessModel::clearSession();
 
-    $fitness = FitnessQuery::fetchById($user->user_id);
-    \view\home\index($fitness, $user, $fitness_errors);
+    $fitnesses = FitnessQuery::fetchById($user->user_id);
+
+    $categories = [
+      ['腕', 'arm'], 
+      ['腹', 'abdmen'],
+      ['脚', 'leg'], 
+      ['その他', 'others']
+    ];
+
+    return View::render('home', array(
+      'fitnesses'      => $fitnesses,
+      'user'           => $user,
+      'fitness_errors' => $fitness_errors,
+      'categories'     => $categories
+    ), true);
 }

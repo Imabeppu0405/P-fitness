@@ -1,19 +1,6 @@
 <?php
-namespace view\home;
-
-use app\core\Message\Msg;
-
-function index($fitnesses, $user, $fitness_errors) {
-  $categories = [
-    ['腕', 'arm'], 
-    ['腹', 'abdmen'],
-    ['脚', 'leg'], 
-    ['その他', 'others']
-  ];
-
-  // 成功時のMessage表示
+  use app\core\Message\Msg;
   if(is_null($fitness_errors)) Msg::flush();
-
   $fitnesses = escape($fitnesses);
   $user = escape($user);
   $fitness_errors = escape($fitness_errors);
@@ -176,6 +163,3 @@ function index($fitnesses, $user, $fitness_errors) {
   </div>
 <?php endforeach; ?>
 </div>
-<?php
-}
-?>

@@ -1,9 +1,5 @@
 <?php
-namespace view\signup;
-
-use app\core\Message\Msg;
-
-function index($user_id, $password, $nickname) {
+  use app\core\Message\Msg;
   $user_id = escape($user_id);
   $password = escape($password);
   $nickname = escape($nickname);
@@ -35,6 +31,3 @@ function index($user_id, $password, $nickname) {
       </div>
     </form>
   </div>
-<?php
-}
-?>

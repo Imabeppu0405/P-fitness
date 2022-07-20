@@ -1,9 +1,5 @@
-<?php
-namespace view\signin;
-
-use app\core\Message\Msg;
-
-function index($user_id, $password) {
+<?php 
+  use app\core\Message\Msg;
   $user_id = escape($user_id);
   $password = escape($password);
   Msg::flush();
@@ -29,6 +25,3 @@ function index($user_id, $password) {
     </form>
   </div>
 </div>
-<?php
-}
-?>

@@ -2,13 +2,10 @@
 
 namespace controller\reward\show;
 
-use app\core\Auth;
-use app\core\Message\Msg;
+use app\core\View;
 use db\RewardQuery;
-use db\UserQuery;
 use model\RewardModel;
 use model\UserModel;
-use Throwable;
 
 function get() {
   $user = UserModel::getSession();
@@ -18,6 +15,11 @@ function get() {
   $reward_errors = RewardModel::getSession();
 
   RewardModel::clearSession();
-  \view\reward\show\index($rewards, $user, $reward_errors);
+  
+  return View::render('reward/show', array(
+    'rewards'       => $rewards,
+    'user'          => $user,
+    'reward_errors' => $reward_errors
+  ), true);
 }
 

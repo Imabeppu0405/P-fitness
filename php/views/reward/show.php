@@ -1,9 +1,5 @@
 <?php
-namespace view\reward\show;
-
-use app\core\Message\Msg;
-
-function index($rewards, $user, $reward_errors) {
+  use app\core\Message\Msg;
   // 成功時のMessage表示
   if (is_null($reward_errors)) Msg::flush();
   $rewards = escape($rewards);
@@ -140,6 +136,3 @@ function index($rewards, $user, $reward_errors) {
   </div>
 <?php endforeach; ?>
 </div>
-<?php
-}
-?>
