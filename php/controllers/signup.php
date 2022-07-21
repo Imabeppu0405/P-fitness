@@ -4,12 +4,13 @@ namespace controller\signup;
 use model\UserModel;
 use app\core\Auth;
 use app\core\Message\Msg;
+use app\core\Session;
 use app\core\View;
 
 function get() {
     # セッションからエラー時の入力値を取得
-    $user = UserModel::getSession();
-    UserModel::clearSession();
+    $user = Session::get('_user');
+    Session::remove('_user');
     return View::render('signup', array(
       'user_id'  => $user->user_id,
       'password' => $user->password,
@@ -30,7 +31,7 @@ function post() {
 
   } else {
 
-    UserModel::setSession($user);
+    Session::set('_user', $user);
     redirect(GO_REFERER);
     
   }

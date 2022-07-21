@@ -4,13 +4,14 @@ namespace controller\signin;
 
 use app\core\Auth;
 use app\core\Message\Msg;
+use app\core\Session;
 use app\core\View;
-use model\UserModel;
+use app\core\UserModel;
 
 function get() {
     # セッションからエラー時の入力値を取得
-    $user = UserModel::getSession();
-    UserModel::clearSession();
+    $user = Session::get('_user');
+    Session::remove('_user');
     return View::render('signin', array(
       'user_id'  => $user->user_id,
       'password' => $user->password
@@ -24,13 +25,13 @@ function post() {
 
   if (Auth::login($user->user_id, $user->password)) {
 
-    $user = UserModel::getSession();
+    $user = Session::get('_user');
     Msg::push(Msg::INFO, "{$user->nickname}さん、ようこそ");
     redirect(GO_HOME);
 
   } else {
 
-    UserModel::setSession($user);
+    Session::set('_user', $user);
     redirect(GO_REFERER);
 
   }

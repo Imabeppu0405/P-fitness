@@ -1,7 +1,6 @@
 <?php
 namespace controller\fitness\delete;
 
-use app\core\Auth;
 use app\core\Message\Msg;
 use db\FitnessQuery;
 use Throwable;

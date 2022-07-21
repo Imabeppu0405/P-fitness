@@ -2,18 +2,17 @@
 
 namespace controller\home;
 
+use app\core\Session;
 use db\FitnessQuery;
-use model\FitnessModel;
-use model\UserModel;
 use app\core\View;
 
 function get()
 {
-    $user = UserModel::getSession();
+    $user = Session::get('_user');
 
     # セッションからエラー時の入力値を取得
-    $fitness_errors = FitnessModel::getSession();
-    FitnessModel::clearSession();
+    $fitness_errors = Session::get('_fitness');
+    Session::remove('_fitness');
 
     $fitnesses = FitnessQuery::fetchById($user->user_id);
 

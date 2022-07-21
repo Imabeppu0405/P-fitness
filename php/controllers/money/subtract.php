@@ -3,8 +3,8 @@
 namespace controller\money\subtract;
 
 use app\core\Message\Msg;
+use app\core\Session;
 use db\UserQuery;
-use model\UserModel;
 use Throwable;
 
 function post()
@@ -13,10 +13,10 @@ function post()
   
   try {
 
-    $user = UserModel::getSession();
+    $user = Session::get('_user');
     $is_success = UserQuery::subtractMoney($user, $price);
     $user = UserQuery::fetchById($user->user_id);
-    UserModel::setSession($user);
+    Session::set('_user', $user);
 
   } catch (Throwable $e) {
 

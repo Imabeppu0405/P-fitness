@@ -2,19 +2,18 @@
 
 namespace controller\reward\show;
 
+use app\core\Session;
 use app\core\View;
 use db\RewardQuery;
-use model\RewardModel;
-use model\UserModel;
 
 function get() {
-  $user = UserModel::getSession();
+  $user = Session::get('_user');
   
   # セッションからエラー時の入力値を取得
   $rewards = RewardQuery::fetchById($user->user_id);
-  $reward_errors = RewardModel::getSession();
+  $reward_errors = Session::get('_reward');
 
-  RewardModel::clearSession();
+  Session::remove('_reward');
   
   return View::render('reward/show', array(
     'rewards'       => $rewards,

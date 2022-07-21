@@ -1,11 +1,10 @@
 <?php
 namespace controller\fitness\create;
 
-use app\core\Auth;
 use app\core\Message\Msg;
 use db\FitnessQuery;
-use model\FitnessModel;
-use model\UserModel;
+use app\core\FitnessModel;
+use app\core\Session;
 use Throwable;
 
 function post() {
@@ -16,7 +15,7 @@ function post() {
 
   try {
 
-    $user = UserModel::getSession();
+    $user = Session::get('_user');
     $is_success = FitnessQuery::insert($fitness, $user);
 
   } catch(Throwable $e) {
@@ -34,7 +33,7 @@ function post() {
   } else {
     # エラーの場合は入力値をセッションに保存
     $fitness->is_create = 1;
-    FitnessModel::setSession($fitness);
+    Session::set('_fitness', $fitness);
     redirect(GO_REFERER);
 
   }

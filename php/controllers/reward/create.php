@@ -1,11 +1,10 @@
 <?php
 namespace controller\reward\create;
 
-use app\core\Auth;
 use app\core\Message\Msg;
 use db\RewardQuery;
-use model\RewardModel;
-use model\UserModel;
+use app\core\RewardModel;
+use app\core\Session;
 use Throwable;
 
 function post() {
@@ -15,7 +14,7 @@ function post() {
 
   try {
 
-    $user = UserModel::getSession();
+    $user = Session::get('_user');
     $is_success = RewardQuery::insert($reward, $user);
 
   } catch(Throwable $e) {
@@ -33,7 +32,7 @@ function post() {
 
     # エラーの場合は入力値をセッションに保存
     $reward->is_create = 1;
-    RewardModel::setSession($reward);
+    Session::set('_reward', $reward);
 
   }
 

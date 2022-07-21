@@ -1,7 +1,6 @@
 <?php
 namespace controller\reward\delete;
 
-use app\core\Auth;
 use app\core\Message\Msg;
 use db\RewardQuery;
 use Throwable;

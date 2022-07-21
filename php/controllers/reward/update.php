@@ -1,11 +1,10 @@
 <?php
 namespace controller\reward\update;
 
-use app\core\Auth;
 use app\core\Message\Msg;
 use db\RewardQuery;
-use model\rewardModel;
-use model\UserModel;
+use app\core\rewardModel;
+use app\core\Session;
 use Throwable;
 
 function post() {
@@ -13,8 +12,7 @@ function post() {
   $reward->id =  get_param('id', null);
   $reward->name = get_param('name', null);
   $reward->price = get_param('price', null);
-  $user = UserModel::getSession();
-
+  $user = Session::get('_user');
   try {
 
     $is_success = RewardQuery::update($reward, $user);
@@ -34,7 +32,7 @@ function post() {
 
     # エラーの場合は入力値をセッションに保存
     $reward->is_create = 0;
-    RewardModel::setSession($reward);
+    Session::set('_reward', $reward);
 
   }
 
