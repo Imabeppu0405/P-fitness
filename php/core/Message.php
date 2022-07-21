@@ -1,32 +1,30 @@
 <?php
 namespace app\core\Message;
 
-use model\AbstractModel;
+use app\core\Session;
 use Throwable;
 
-class Msg extends AbstractModel {
+class Msg  {
   public const ERROR = 'error';
   public const INFO = 'info';
   public const DEBUG = 'debug';
-  
-  protected static $SESSION_NAME = '_msg';
 
   public static function push($type, $msg) {
-    if (!is_array(static::getSession())) {
+    if (!is_array(Session::get('_msg'))) {
 
       static::init();
 
     }
 
-    $msgs = static::getSession();
+    $msgs = Session::get('_msg');
     $msgs[$type][] = $msg;
-    static::setSession($msgs);
+    Session::set('_msg', $msgs);
   }
 
   public static function flush() {
     try {
 
-      $msgs_with_types = static::getSessionAndFlush() ?? [];
+      $msgs_with_types = Session::getAndFlush('_msg') ?? [];
 
       echo '<div id="messages">';
 
@@ -56,7 +54,7 @@ class Msg extends AbstractModel {
   }
 
   private static function init() {
-    static::setSession([
+    Session::set('_msg', [
       static::ERROR => [],
       static::INFO  => [],
       static::DEBUG => []

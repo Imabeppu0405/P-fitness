@@ -12,12 +12,6 @@ require_once SOURCE_BASE . 'core/Session.php';
 require_once SOURCE_BASE . 'core/Format.php';
 require_once SOURCE_BASE . 'core/Validation.php';
 
-// models
-require_once SOURCE_BASE . 'models/abstract.model.php';
-require_once SOURCE_BASE . 'models/user.model.php';
-require_once SOURCE_BASE . 'models/fitness.model.php';
-require_once SOURCE_BASE . 'models/reward.model.php';
-
 // message
 require_once SOURCE_BASE . 'core/Message.php';
 
