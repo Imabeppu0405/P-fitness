@@ -18,12 +18,12 @@
       <div class="mb-4 w-75 mx-auto">
         <label for="password" class="form-label">パスワード</label>
         <input type="password" class="form-control" name="password" id="password" value="<?php echo $password ?>">
-        <div id="pwd_help" class="form-text">英数字を含む6~12文字</div>
+        <div id="pwd_help" class="form-text">英大文字・小文字と数字を含む10~20文字</div>
       </div>
       <div class="w-75 mx-auto">
         <label for="nickname" class="form-label">ニックネーム</label>
         <input type="text" class="form-control" name="nickname" id="nickname" value="<?php echo $nickname ?>">
-        <div id="nick_help" class="form-text">10文字以下の日本語</div>
+        <div id="nick_help" class="form-text">10文字以下</div>
       </div>
       <div class="text-center mt-5">
         <button type="submit" class="btn btn-primary">新規登録</button>

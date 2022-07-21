@@ -8,7 +8,7 @@ use db\UserQuery;
 
 class Validation {
   // user
-  public static function validateId($user_id)
+  public static function validateId($user_id, $is_signup = false)
   {
     $res = true;
     if (empty($user_id)) {
@@ -21,7 +21,7 @@ class Validation {
       Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下の英数字で入力してください');
       $res = false;
 
-    } else if (!UserQuery::isUniqueId($user_id)) {
+    } else if ($is_signup && !UserQuery::isUniqueId($user_id)) {
 
       Msg::push(Msg::ERROR, 'すでに登録済のユーザーです');
       $res = false;
@@ -39,9 +39,9 @@ class Validation {
       Msg::push(Msg::ERROR, 'パスワードを入力してください');
       $res = false;
 
-    } else if (!preg_match('/^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$/', $password)) {
+    } else if (!preg_match('/^(?=.*[a-z])(?=.*[[A-Z])(?=.*[0-9])[a-zA-Z0-9]{10,20}$/', $password)) {
 
-      Msg::push(Msg::ERROR, 'パスワードは、英数両方を含んだ6~12文字の英数字で入力してください');
+      Msg::push(Msg::ERROR, 'パスワードは、英大文字、小文字と数字を含んだ10~20文字の英数字で入力してください');
       $res = false;
 
     }
@@ -57,9 +57,9 @@ class Validation {
       Msg::push(Msg::ERROR, 'ニックネームを入力してください');
       $res = false;
 
-    } else if (!preg_match('/^[ぁ-んァ-ヶｦ-ﾝ一-龠々ー]{1,10}$/u', $nickname)) {
+    } else if ((mb_strlen($nickname) > 10)) {
 
-      Msg::push(Msg::ERROR, 'ニックネームは10文字以下の日本語で入力してください');
+      Msg::push(Msg::ERROR, 'ニックネームは10文字以下で入力してください');
       $res = false;
 
     }
@@ -126,11 +126,11 @@ class Validation {
       Msg::push(Msg::ERROR, '名前は10文字以下で入力してください');
       $res = false;
 
-    } else if (RewardQuery::isUniqueName($name, $user_id, $id)) {
+    } else if (!RewardQuery::isUniqueName($name, $user_id, $id)) {
 
       Msg::push(Msg::ERROR, '報酬はすでに登録済みです');
       return false;
-      
+
     }
     
 

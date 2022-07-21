@@ -50,7 +50,7 @@ class Auth
   public static function regist($user)
   {
     try {
-      if (!(Validation::validateId($user->user_id)
+      if (!(Validation::validateId($user->user_id, true)
           * Validation::validatePwd($user->password)
           * Validation::validateNickname($user->nickname))) {
           return false;

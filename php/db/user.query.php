@@ -3,7 +3,7 @@ namespace db;
 
 use app\core\Message\Msg;
 use db\DataSource;
-use model\UserModel;
+use app\core\UserModel;
 
 class UserQuery {
   public static function fetchById($user_id) 

@@ -1,9 +1,8 @@
 <?php
 namespace db;
 
-use app\core\Message\Msg;
 use app\core\Validation;
-use model\FitnessModel;
+use app\core\FitnessModel;
 
 class FitnessQuery
 {

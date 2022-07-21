@@ -1,7 +1,7 @@
 <?php
 namespace controller\signup;
 
-use model\UserModel;
+use app\core\UserModel;
 use app\core\Auth;
 use app\core\Message\Msg;
 use app\core\Session;

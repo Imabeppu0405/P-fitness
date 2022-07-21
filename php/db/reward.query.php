@@ -1,9 +1,8 @@
 <?php
 namespace db;
 
-use app\core\Message\Msg;
 use app\core\Validation;
-use model\RewardModel;
+use app\core\RewardModel;
 
 class RewardQuery
 {
