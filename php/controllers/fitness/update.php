@@ -5,7 +5,7 @@ use app\core\Message\Msg;
 use app\core\Session;
 use db\FitnessQuery;
 use app\core\FitnessModel;
-use Throwable;
+use RuntimeException;
 
 function post() {
   $fitness = new FitnessModel;
@@ -19,7 +19,7 @@ function post() {
 
     $is_success = FitnessQuery::update($fitness, $user);
 
-  } catch(Throwable $e) {
+  } catch(RuntimeException $e) {
 
     Msg::push(Msg::DEBUG, $e->getMessage());
     $is_success = false;
@@ -29,14 +29,14 @@ function post() {
   if ($is_success) {
 
     Msg::push(Msg::INFO, 'フィットネスの更新に成功しました。');
-    redirect(GO_HOME);
+    redirect('home');
 
   } else {
 
     # エラーの場合は入力値をセッションに保存
     $fitness->is_create = 0;
     Session::set('_fitness', $fitness);
-    redirect(GO_REFERER);
+    redirect('referer');
 
   }
 }

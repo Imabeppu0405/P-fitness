@@ -5,7 +5,7 @@ namespace controller\money\subtract;
 use app\core\Message\Msg;
 use app\core\Session;
 use db\UserQuery;
-use Throwable;
+use RuntimeException;
 
 function post()
 {
@@ -18,7 +18,7 @@ function post()
     $user = UserQuery::fetchById($user->user_id);
     Session::set('_user', $user);
 
-  } catch (Throwable $e) {
+  } catch (RuntimeException $e) {
 
     Msg::push(Msg::DEBUG, $e->getMessage());
     $is_success = false;
@@ -35,5 +35,5 @@ function post()
 
   }
 
-  redirect(GO_REFERER);
+  redirect('referer');
 }

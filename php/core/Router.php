@@ -3,7 +3,7 @@
 namespace app\core;
 
 use app\core\Message\Msg;
-use Throwable;
+use RuntimeException;
 
 class Router
 {
@@ -48,7 +48,7 @@ class Router
       $fn = "\\controller{$targetname}\\{$method}";
       $fn();
 
-    } catch(Throwable $e) {
+    } catch(RuntimeException $e) {
 
       Msg::push(Msg::DEBUG, $e->getMessage());
       redirect('404');

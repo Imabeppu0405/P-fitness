@@ -3,7 +3,7 @@ namespace controller\reward\delete;
 
 use app\core\Message\Msg;
 use db\RewardQuery;
-use Throwable;
+use RuntimeException;
 
 function post() {
   $id =  get_param('id', null);
@@ -12,7 +12,7 @@ function post() {
     
     $is_success = RewardQuery::delete($id);
 
-  } catch(Throwable $e) {
+  } catch(RuntimeException $e) {
 
     Msg::push(Msg::DEBUG, $e->getMessage());
     $is_success = false;
@@ -22,12 +22,12 @@ function post() {
   if ($is_success) {
 
     Msg::push(Msg::INFO, '削除しました。');
-    redirect(GO_REFERER);
+    redirect('referer');
 
   } else {
 
     Msg::push(Msg::ERROR, '削除できませんでした。');
-    redirect(GO_REFERER);
+    redirect('referer');
 
   }
 }

@@ -16,5 +16,5 @@ function get() {
 
   }
 
-  redirect(GO_HOME);
+  redirect('home');
 }

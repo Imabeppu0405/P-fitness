@@ -7,11 +7,11 @@ function get_param($key, $default_val, $is_post = true)
 
 function redirect($path)
 {
-  if ($path === GO_HOME) {
+  if ($path === 'home') {
 
     $path = get_url('');
 
-  } else if ($path === GO_REFERER) {
+  } else if ($path === 'referer') {
 
     $path = $_SERVER['HTTP_REFERER'];
 

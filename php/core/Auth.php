@@ -4,7 +4,7 @@ namespace app\core;
 
 use app\core\Message\Msg;
 use db\UserQuery;
-use Throwable;
+use RuntimeException;
 
 class Auth
 {
@@ -36,7 +36,7 @@ class Auth
         Msg::push(Msg::ERROR, 'ユーザーが見つかりません');
 
       }
-    } catch (Throwable $e) {
+    } catch (RuntimeException $e) {
 
       $is_success = false;
       Msg::push(Msg::DEBUG, $e->getMessage());
@@ -66,7 +66,7 @@ class Auth
         Session::setAuthentication();
       }
 
-    } catch (Throwable $e) {
+    } catch (RuntimeException $e) {
 
       $is_success = false;
       Msg::push(Msg::DEBUG, $e->getMessage());
@@ -83,7 +83,7 @@ class Auth
       Session::remove('_user');
       Session::clearAuthentication();
 
-    } catch (Throwable $e) {
+    } catch (RuntimeException $e) {
 
       Msg::push(Msg::DEBUG, $e->getMessage());
       return false;

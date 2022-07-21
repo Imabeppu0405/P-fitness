@@ -5,7 +5,7 @@ use app\core\Message\Msg;
 use db\RewardQuery;
 use app\core\RewardModel;
 use app\core\Session;
-use Throwable;
+use RuntimeException;
 
 function post() {
   $reward = new RewardModel;
@@ -17,7 +17,7 @@ function post() {
     $user = Session::get('_user');
     $is_success = RewardQuery::insert($reward, $user);
 
-  } catch(Throwable $e) {
+  } catch(RuntimeException $e) {
 
     Msg::push(Msg::DEBUG, $e->getMessage());
     $is_success = false;
@@ -36,5 +36,5 @@ function post() {
 
   }
 
-  redirect(GO_REFERER);
+  redirect('referer');
 } 

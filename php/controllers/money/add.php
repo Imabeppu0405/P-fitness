@@ -5,7 +5,7 @@ namespace controller\money\add;
 use app\core\Message\Msg;
 use app\core\Session;
 use db\UserQuery;
-use Throwable;
+use RuntimeException;
 
 function post()
 {
@@ -19,7 +19,7 @@ function post()
     Session::set('_user', $user);
 
 
-  } catch (Throwable $e) {
+  } catch (RuntimeException $e) {
 
     Msg::push(Msg::DEBUG, $e->getMessage());
     $is_success = false;
@@ -35,5 +35,5 @@ function post()
     Msg::push(Msg::ERROR, 'moneyの更新に失敗しました。');
 
   }
-  redirect(GO_REFERER);
+  redirect('referer');
 }

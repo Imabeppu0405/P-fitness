@@ -3,7 +3,7 @@ namespace controller\fitness\delete;
 
 use app\core\Message\Msg;
 use db\FitnessQuery;
-use Throwable;
+use RuntimeException;
 
 function post() {
   $id =  get_param('id', null);
@@ -12,7 +12,7 @@ function post() {
 
     $is_success = FitnessQuery::delete($id);
 
-  } catch(Throwable $e) {
+  } catch(RuntimeException $e) {
 
     Msg::push(Msg::DEBUG, $e->getMessage());
     $is_success = false;
@@ -22,12 +22,12 @@ function post() {
   if ($is_success) {
 
     Msg::push(Msg::INFO, '削除しました。');
-    redirect(GO_HOME);
+    redirect('home');
 
   } else {
 
     Msg::push(Msg::ERROR, '削除できませんでした。');
-    redirect(GO_REFERER);
+    redirect('referer');
 
   }
 }

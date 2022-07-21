@@ -2,7 +2,7 @@
 namespace app\core\Message;
 
 use app\core\Session;
-use Throwable;
+use RuntimeException;
 
 class Msg  {
   public const ERROR = 'error';
@@ -45,7 +45,7 @@ class Msg  {
       }
 
       echo '</div>';
-    } catch (Throwable $e) {
+    } catch (RuntimeException $e) {
 
       Msg::push(Msg::DEBUG, $e->getMessage());
       Msg::push(Msg::DEBUG, 'Msg:flush()での例外です。');

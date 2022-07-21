@@ -27,12 +27,12 @@ function post() {
 
     $user = Session::get('_user');
     Msg::push(Msg::INFO, "{$user->nickname}さん、ようこそ");
-    redirect(GO_HOME);
+    redirect('home');
 
   } else {
 
     Session::set('_user', $user);
-    redirect(GO_REFERER);
+    redirect('referer');
 
   }
 }
