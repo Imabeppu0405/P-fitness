@@ -2,18 +2,14 @@
 namespace db;
 
 use app\core\Message\Msg;
+use app\core\Validation;
 use model\FitnessModel;
 
 class FitnessQuery
 {
   public static function insert($fitness, $user) 
   {
-    if (!($fitness->isValidName() * $fitness->isValidLevel())) {
-      return false;
-    }
-
-    if (!self::isUniqueName($fitness->name, $user->user_id)) {
-      Msg::push(Msg::ERROR, 'フィットネスはすでに登録済みです');
+    if (!(Validation::validateFitnessName($fitness->name, $user->user_id) * Validation::validateLevel($fitness->level))) {
       return false;
     }
 
@@ -30,12 +26,7 @@ class FitnessQuery
 
   public static function update($fitness, $user)
   {
-    if (!($fitness->isValidName() * $fitness->isValidLevel())) {
-      return false;
-    }
-
-    if (!self::isUniqueNameExceptId($fitness->name, $user->user_id, $fitness->id)) {
-      Msg::push(Msg::ERROR, 'フィットネスはすでに登録済みです');
+    if (!(Validation::validateFitnessName($fitness->name, $user->user_id, $fitness->id) * Validation::validateLevel($fitness->level))) {
       return false;
     }
 
@@ -74,24 +65,7 @@ class FitnessQuery
     return $result;
   }
 
-  private function isUniqueName($name, $user_id)
-  {
-    $db = DataSource::getInstance();
-    $sql = 'SELECT COUNT(id) as count FROM fitness WHERE name = :name and delete_flag = 0 and user_id = :user_id';
-
-    $result = $db->select($sql, [
-      ':name'    => $name,
-      ':user_id' => $user_id,
-    ]);
-    
-    if ($result[0]['count'] === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private function isUniqueNameExceptId($name, $user_id, $id)
+  public static function isUniqueName($name, $user_id, $id)
   {
     $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(id) as count FROM fitness WHERE name = :name and delete_flag = 0 and user_id = :user_id and id != :id';

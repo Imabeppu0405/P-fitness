@@ -2,18 +2,14 @@
 namespace db;
 
 use app\core\Message\Msg;
+use app\core\Validation;
 use model\RewardModel;
 
 class RewardQuery
 {
   public static function insert($reward, $user) 
   {
-    if (!($reward->isValidName() * $reward->isValidPrice())) {
-      return false;
-    }
-
-    if (!self::isUniqueName($reward->name, $user->user_id)) {
-      Msg::push(Msg::ERROR, '報酬はすでに登録済みです');
+    if (!(Validation::validateRewardName($reward->name, $user->user_id) * Validation::validatePrice($reward->price))) {
       return false;
     }
     
@@ -29,12 +25,7 @@ class RewardQuery
 
   public static function update($reward, $user)
   {
-    if (!($reward->isValidName() * $reward->isValidPrice())) {
-      return false;
-    }
-
-    if (!self::isUniqueNameExceptId($reward->name, $user->user_id, $reward->id)) {
-      Msg::push(Msg::ERROR, '報酬はすでに登録済みです');
+    if (!(Validation::validateRewardName($reward->name, $user->user_id, $reward->id) * Validation::validatePrice($reward->price))) {
       return false;
     }
 
@@ -72,24 +63,7 @@ class RewardQuery
     return $result;
   }
 
-  private function isUniqueName($name, $user_id)
-  {
-    $db = DataSource::getInstance();
-    $sql = 'SELECT COUNT(id) as count FROM reward WHERE name = :name and delete_flag = 0 and user_id = :user_id';
-
-    $result = $db->select($sql, [
-      ':name'    => $name,
-      ':user_id' => $user_id,
-    ]);
-    
-    if ($result[0]['count'] === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private function isUniqueNameExceptId($name, $user_id, $id)
+  public static function isUniqueName($name, $user_id, $id)
   {
     $db = DataSource::getInstance();
     $sql = 'SELECT COUNT(id) as count FROM reward WHERE name = :name and delete_flag = 0 and user_id = :user_id and id != :id';

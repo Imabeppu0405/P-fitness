@@ -10,6 +10,7 @@ require_once SOURCE_BASE . 'core/Auth.php';
 require_once SOURCE_BASE . 'core/View.php';
 require_once SOURCE_BASE . 'core/Session.php';
 require_once SOURCE_BASE . 'core/Format.php';
+require_once SOURCE_BASE . 'core/Validation.php';
 
 // models
 require_once SOURCE_BASE . 'models/abstract.model.php';

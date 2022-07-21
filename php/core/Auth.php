@@ -4,7 +4,6 @@ namespace app\core;
 
 use app\core\Message\Msg;
 use db\UserQuery;
-use model\UserModel;
 use Throwable;
 
 class Auth
@@ -12,7 +11,7 @@ class Auth
   public static function login($user_id, $password)
   {
     try {
-      if (!(UserModel::validateId($user_id) * UserModel::validatePwd($password))) {
+      if (!(Validation::validateId($user_id) * Validation::validatePwd($password))) {
         return false;
       }
 
@@ -24,8 +23,8 @@ class Auth
 
           $is_success = true;
           $user = UserQuery::fetchById($user->user_id);
-          UserModel::setSession($user);
-          UserModel::setAuthentication();
+          Session::set('_user', $user);
+          Session::setAuthentication();
 
         } else {
 
@@ -51,17 +50,10 @@ class Auth
   public static function regist($user)
   {
     try {
-      if (!($user->isValidId()
-          * $user->isValidPwd()
-          * $user->isValidNick())) {
+      if (!(Validation::validateId($user->user_id)
+          * Validation::validatePwd($user->password)
+          * Validation::validateNickname($user->nickname))) {
           return false;
-      }
-
-      if (!$user->isUniqueId()) {
-
-        Msg::push(Msg::ERROR, 'ユーザーIDはすでに登録済みです');
-        return false;
-
       }
 
       $is_success = false;
@@ -70,9 +62,8 @@ class Auth
       if ($is_success) {
 
         $user = UserQuery::fetchById($user->user_id);
-        UserModel::setSession($user);
-        UserModel::setAuthentication();
-
+        Session::set('_user', $user);
+        Session::setAuthentication();
       }
 
     } catch (Throwable $e) {
@@ -89,8 +80,8 @@ class Auth
   public static function logout() {
     try {
 
-      UserModel::clearSession();
-      UserModel::clearAuthentication();
+      Session::remove('_user');
+      Session::clearAuthentication();
 
     } catch (Throwable $e) {
 
@@ -104,6 +95,6 @@ class Auth
 
   public static function isLogin() {
 
-    return UserModel::isAuthenticated();
+    return Session::isAuthenticated();
   }
 }
