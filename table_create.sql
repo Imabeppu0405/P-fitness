@@ -10,6 +10,7 @@ CREATE TABLE fitness (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
   level INT NOT NULL,
+  category INT NOT NULL,
   user_id VARCHAR(20) NOT NULL,
   delete_flag BOOLEAN NOT NULL default false,
   created_at TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
@@ -20,6 +21,7 @@ CREATE TABLE reward (
   name VARCHAR(50) NOT NULL,
   price INT NOT NULL,
   user_id  VARCHAR(20) NOT NULL,
+  delete_flag BOOLEAN NOT NULL default false,
   created_at TIMESTAMP NOT NULL default CURRENT_TIMESTAMP
 ) DEFAULT CHARSET UTF8 COMMENT 'rewardTable';
 
