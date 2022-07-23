@@ -17,9 +17,10 @@ require_once SOURCE_BASE . 'core/Message.php';
 
 // sql
 require_once SOURCE_BASE . 'db/datasource.php';
-require_once SOURCE_BASE . 'db/user.query.php';
-require_once SOURCE_BASE . 'db/fitness.query.php';
-require_once SOURCE_BASE . 'db/reward.query.php';
+require_once SOURCE_BASE . 'db/dbQuery.php';
+require_once SOURCE_BASE . 'db/userQuery.php';
+require_once SOURCE_BASE . 'db/fitnessQuery.php';
+require_once SOURCE_BASE . 'db/rewardQuery.php';
 
 // partial
 // require_once SOURCE_BASE . 'partials/header.php';
