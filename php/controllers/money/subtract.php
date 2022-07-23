@@ -2,9 +2,9 @@
 
 namespace controller\money\subtract;
 
-use app\core\Message\Msg;
+use libs\Msg;
 use app\core\Session;
-use db\UserQuery;
+use db\UserRepository;
 use RuntimeException;
 
 function post()
@@ -14,8 +14,8 @@ function post()
   try {
 
     $user = Session::get('_user');
-    $is_success = UserQuery::subtractMoney($user, $price);
-    $user = UserQuery::fetchById($user->user_id);
+    $is_success = UserRepository::subtractMoney($user, $price);
+    $user = UserRepository::fetchById($user->user_id);
     Session::set('_user', $user);
 
   } catch (RuntimeException $e) {

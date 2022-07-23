@@ -2,7 +2,7 @@
 namespace controller\logout;
 
 use app\core\Auth;
-use app\core\Message\Msg;
+use libs\Msg;
 
 function get() {
 

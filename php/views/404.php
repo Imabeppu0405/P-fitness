@@ -1,6 +1,6 @@
 <?php
 
-use app\core\Message\Msg;
+use libs\Msg;
 
  Msg::flush(); ?>
 <div class="text-center">

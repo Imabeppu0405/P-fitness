@@ -2,7 +2,7 @@
 
 namespace app\core;
 
-use app\core\Message\Msg;
+use libs\Msg;
 use RuntimeException;
 
 class Router

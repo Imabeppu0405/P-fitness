@@ -1,5 +1,5 @@
 <?php
-  use app\core\Message\Msg;
+  use libs\Msg;
   // 成功時のMessage表示
   if (is_null($reward_errors)) Msg::flush();
   $rewards = escape($rewards);

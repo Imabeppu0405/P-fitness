@@ -1,10 +1,10 @@
 <?php
 namespace db;
 
-use app\core\Validation;
-use app\core\FitnessModel;
+use libs\Validation;
+use libs\FitnessClass;
 
-class FitnessQuery extends DbQuery
+class FitnessRepository extends DbRepository
 {
   public static function insert($fitness, $user) 
   {
@@ -54,7 +54,7 @@ class FitnessQuery extends DbQuery
     $result = self::select($sql, [
       ':user_id' => $user_id
     ],
-    self::CLS, FitnessModel::class);
+    self::CLS, FitnessClass::class);
 
     return $result;
   }

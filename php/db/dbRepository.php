@@ -3,7 +3,7 @@ namespace db;
 
 use PDO;
 
-abstract class DbQuery
+abstract class DbRepository
 {
   protected const CLS = 'cls';
   public static $result = null;

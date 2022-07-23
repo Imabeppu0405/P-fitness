@@ -1,11 +1,11 @@
 <?php
 namespace controller\signup;
 
-use app\core\UserModel;
 use app\core\Auth;
-use app\core\Message\Msg;
+use libs\Msg;
 use app\core\Session;
 use app\core\View;
+use db\UserRepository;
 
 function get() {
     # セッションからエラー時の入力値を取得
@@ -19,7 +19,7 @@ function get() {
 }
 
 function post() {
-  $user= new UserModel;
+  $user= new UserRepository;
   $user->user_id = get_param('user_id', '');
   $user->password = get_param('password', '');
   $user->nickname = get_param('nickname', '');

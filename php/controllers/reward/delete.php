@@ -1,8 +1,8 @@
 <?php
 namespace controller\reward\delete;
 
-use app\core\Message\Msg;
-use db\RewardQuery;
+use libs\Msg;
+use db\RewardRepository;
 use RuntimeException;
 
 function post() {
@@ -10,7 +10,7 @@ function post() {
 
   try {
     
-    $is_success = RewardQuery::delete($id);
+    $is_success = RewardRepository::delete($id);
 
   } catch(RuntimeException $e) {
 

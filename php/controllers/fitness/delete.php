@@ -1,8 +1,8 @@
 <?php
 namespace controller\fitness\delete;
 
-use app\core\Message\Msg;
-use db\FitnessQuery;
+use libs\Msg;
+use db\FitnessRepository;
 use RuntimeException;
 
 function post() {
@@ -10,7 +10,7 @@ function post() {
 
   try {
 
-    $is_success = FitnessQuery::delete($id);
+    $is_success = FitnessRepository::delete($id);
 
   } catch(RuntimeException $e) {
 

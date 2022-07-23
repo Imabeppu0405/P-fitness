@@ -1,21 +1,21 @@
 <?php
 namespace controller\reward\update;
 
-use app\core\Message\Msg;
-use db\RewardQuery;
-use app\core\rewardModel;
+use libs\Msg;
+use db\RewardRepository;
+use libs\RewardClass;
 use app\core\Session;
 use RuntimeException;
 
 function post() {
-  $reward = new rewardModel;
+  $reward = new RewardClass;
   $reward->id =  get_param('id', null);
   $reward->name = get_param('name', null);
   $reward->price = get_param('price', null);
   $user = Session::get('_user');
   try {
 
-    $is_success = RewardQuery::update($reward, $user);
+    $is_success = RewardRepository::update($reward, $user);
 
   } catch(RuntimeException $e) {
 

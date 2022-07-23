@@ -1,10 +1,10 @@
 <?php
 namespace db;
 
-use app\core\Validation;
-use app\core\RewardModel;
+use libs\Validation;
+use libs\RewardClass;
 
-class RewardQuery extends DbQuery
+class RewardRepository extends DbRepository
 {
   public static function insert($reward, $user) 
   {
@@ -53,7 +53,7 @@ class RewardQuery extends DbQuery
     $result = self::select($sql, [
       ':user_id' => $user_id
     ],
-    self::CLS, RewardModel::class);
+    self::CLS, RewardClass::class);
 
     return $result;
   }

@@ -1,14 +1,14 @@
 <?php
 namespace controller\fitness\update;
 
-use app\core\Message\Msg;
+use libs\Msg;
 use app\core\Session;
-use db\FitnessQuery;
-use app\core\FitnessModel;
+use db\FitnessRepository;
+use libs\FitnessClass;
 use RuntimeException;
 
 function post() {
-  $fitness = new FitnessModel;
+  $fitness = new FitnessClass;
   $fitness->id =  get_param('id', null);
   $fitness->name = get_param('name', null);
   $fitness->level = get_param('level', null);
@@ -17,7 +17,7 @@ function post() {
 
   try {
 
-    $is_success = FitnessQuery::update($fitness, $user);
+    $is_success = FitnessRepository::update($fitness, $user);
 
   } catch(RuntimeException $e) {
 

@@ -1,10 +1,9 @@
 <?php
-namespace app\core;
+namespace libs;
 
-use app\core\Message\Msg;
-use db\FitnessQuery;
-use db\RewardQuery;
-use db\UserQuery;
+use db\FitnessRepository;
+use db\RewardRepository;
+use db\UserRepository;
 
 class Validation {
   // user
@@ -21,7 +20,7 @@ class Validation {
       Msg::push(Msg::ERROR, 'ユーザーIDは10文字以下の英数字で入力してください');
       $res = false;
 
-    } else if ($is_signup && !UserQuery::isUniqueId($user_id)) {
+    } else if ($is_signup && !UserRepository::isUniqueId($user_id)) {
 
       Msg::push(Msg::ERROR, 'すでに登録済のユーザーです');
       $res = false;
@@ -81,7 +80,7 @@ class Validation {
       Msg::push(Msg::ERROR, '名前は10文字以下で入力してください');
       $res = false;
 
-    } else if (!FitnessQuery::isUniqueName($name, $user_id, $id)) {
+    } else if (!FitnessRepository::isUniqueName($name, $user_id, $id)) {
 
       Msg::push(Msg::ERROR, 'フィットネスはすでに登録済みです');
       return false;
@@ -126,7 +125,7 @@ class Validation {
       Msg::push(Msg::ERROR, '名前は10文字以下で入力してください');
       $res = false;
 
-    } else if (!RewardQuery::isUniqueName($name, $user_id, $id)) {
+    } else if (!RewardRepository::isUniqueName($name, $user_id, $id)) {
 
       Msg::push(Msg::ERROR, '報酬はすでに登録済みです');
       return false;

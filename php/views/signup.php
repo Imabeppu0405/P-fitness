@@ -1,5 +1,5 @@
 <?php
-  use app\core\Message\Msg;
+  use libs\Msg;
   $user_id = escape($user_id);
   $password = escape($password);
   $nickname = escape($nickname);

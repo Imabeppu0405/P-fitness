@@ -3,7 +3,7 @@
 namespace controller\home;
 
 use app\core\Session;
-use db\FitnessQuery;
+use db\FitnessRepository;
 use app\core\View;
 
 function get()
@@ -14,7 +14,7 @@ function get()
     $fitness_errors = Session::get('_fitness');
     Session::remove('_fitness');
 
-    $fitnesses = FitnessQuery::fetchById($user->user_id);
+    $fitnesses = FitnessRepository::fetchById($user->user_id);
 
     $categories = [
       ['腕', 'arm'], 

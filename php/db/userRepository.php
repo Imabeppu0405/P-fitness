@@ -1,18 +1,20 @@
 <?php
 namespace db;
 
-use app\core\Message\Msg;
-use app\core\UserModel;
+use libs\Msg;
+use libs\UserClass;
 
-class UserQuery extends DbQuery
+class UserRepository extends DbRepository
 {
+  
+
   public static function fetchById($user_id) 
   {
     $sql = 'select * from user where user_id = :user_id;';
 
     $result = self::selectOne($sql, [
       ':user_id' => $user_id
-    ], self::CLS, UserModel::class);
+    ], self::CLS, UserClass::class);
 
     return $result;
   }

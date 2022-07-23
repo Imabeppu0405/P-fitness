@@ -2,8 +2,9 @@
 
 namespace app\core;
 
-use app\core\Message\Msg;
-use db\UserQuery;
+use libs\Msg;
+use libs\Validation;
+use db\UserRepository;
 use RuntimeException;
 
 class Auth
@@ -16,13 +17,13 @@ class Auth
       }
 
       $is_success = false;
-      $user = UserQuery::fetchById($user_id);
+      $user = UserRepository::fetchById($user_id);
     
       if (!empty($user)) { 
         if (password_verify($password, $user->password)) {
 
           $is_success = true;
-          $user = UserQuery::fetchById($user->user_id);
+          $user = UserRepository::fetchById($user->user_id);
           Session::set('_user', $user);
           Session::setAuthentication();
 
@@ -57,11 +58,11 @@ class Auth
       }
 
       $is_success = false;
-      $is_success = UserQuery::insert($user);
+      $is_success = UserRepository::insert($user);
 
       if ($is_success) {
 
-        $user = UserQuery::fetchById($user->user_id);
+        $user = UserRepository::fetchById($user->user_id);
         Session::set('_user', $user);
         Session::setAuthentication();
       }

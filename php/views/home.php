@@ -1,5 +1,5 @@
 <?php
-  use app\core\Message\Msg;
+  use libs\Msg;
   if(is_null($fitness_errors)) Msg::flush();
   $fitnesses = escape($fitnesses);
   $user = escape($user);

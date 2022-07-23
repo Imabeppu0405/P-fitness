@@ -1,5 +1,5 @@
 <?php
-namespace app\core\Message;
+namespace libs;
 
 use app\core\Session;
 use RuntimeException;
