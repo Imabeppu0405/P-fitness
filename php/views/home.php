@@ -12,8 +12,8 @@
 <p class="h5 text-center m-3">
   現在の所持金：<?php echo $user->money ?>円　
   <select name="sortType" id="selectSortType">
-  <?php foreach($fitnes_sort_array as $key => $sortType) : ?>
-    <option class="sort_button" value="<?php echo $sortType ?>">並び順：<?php echo $key ?></option>
+  <?php foreach($fitness_sort_array as $key => $sortType) : ?>
+    <option value="<?php echo $sortType ?>">並び順：<?php echo $key ?></option>
   <?php endforeach; ?>
   </select>
 </p>
@@ -69,13 +69,13 @@
   </div>
 </div>
 
-<div id="fitness-index-cont" class="d-flex flex-wrap justify-content-center mt-5">
+<div id="indexCont" class="d-flex flex-wrap justify-content-center mt-5">
 <?php foreach($fitnesses as $key => $fitness) : ?>
-  <div class="card m-2 position-relative fitness" style="width: 18rem;">
+  <div class="card m-2 position-relative sort-element" style="width: 18rem;">
     <!-- ソート用の値 -->
     <input type="hidden" class="fitness_level" value="<?php echo $fitness->level ?>">
     <input type="hidden" class="fitness_name" value="<?php echo $fitness->name ?>">
-    <input type="hidden" class="fitness_created" value="<?php echo strtotime($fitness->created_at) ?>">
+    <input type="hidden" class="fitness_created" value="<?php echo $fitness->id ?>">
     <input type="hidden" class="fitness_category" value="<?php echo $fitness->category ?>">
 
     <div class="d-flex justify-content-between m-2">

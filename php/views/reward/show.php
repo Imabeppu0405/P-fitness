@@ -10,7 +10,14 @@
   <h1 class="mx-3">報酬一覧</h1>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReward">追加</button>
 </div>
-<p class="h5 text-center m-3">現在の所持金：<?php echo $user->money ?>円</p>
+<p class="h5 text-center m-3">
+  現在の所持金：<?php echo $user->money ?>円　
+  <select name="sortType" id="selectSortType">
+  <?php foreach($reward_sort_array as $key => $sortType) : ?>
+    <option value="<?php echo $sortType ?>">並び順：<?php echo $key ?></option>
+  <?php endforeach; ?>
+  </select>
+</p>
 
 <?php if (empty($rewards)) : ?>
   <p class="text-center">現在報酬は登録されていません。</p>
@@ -54,9 +61,14 @@
   </div>
 </div>
 
-<div class="d-flex flex-wrap justify-content-center mt-5">
+<div id="indexCont" class="d-flex flex-wrap justify-content-center mt-5">
 <?php foreach($rewards as $key => $reward) : ?>
-  <div class="card m-2 position-relative" style="width: 18rem;">
+  <div class="card m-2 position-relative sort-element" style="width: 18rem;">
+    <!-- ソート用の値 -->
+    <input type="hidden" class="reward_price" value="<?php echo $reward->price ?>">
+    <input type="hidden" class="reward_name" value="<?php echo $reward->name ?>">
+    <input type="hidden" class="reward_created" value="<?php echo $reward->id ?>">
+
     <div class="d-flex justify-content-end m-2">
       <button type="button" class="btn btn-outline-success mx-2" data-bs-toggle="modal" data-bs-target="#updateReward<?php echo $key ?>">
          <span class="bi bi-pencil-square"></span>

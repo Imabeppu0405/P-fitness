@@ -19,36 +19,33 @@ if (document.getElementById('updateError') != null) {
    updateModal.show();
 }
 
-const fitnesSortArray = ['fitness_name', 'fitness_level', 'fitness_created', 'fitness_category'];
-
-const sortButtons = document.getElementsByClassName('sort_button');
 const selectSortType = document.getElementById('selectSortType');
 
 selectSortType.addEventListener('change', () => {
-  const fitnessies = Array.from(document.querySelectorAll('.fitness'));
-  const fitnessCont = document.getElementById('fitness-index-cont');
+  const sortElements = Array.from(document.querySelectorAll('.sort-element'));
+  const indexCont = document.getElementById('indexCont');
 
   const [sortType, order] = selectSortType.value.split('-');
   const sortTypeArray = document.getElementsByClassName(sortType);
 
   const sortTypes = [];
-  for(let i = 0; i < fitnessies.length; i++) {
+  for(let i = 0; i < sortElements.length; i++) {
     let type = sortTypeArray[i].value;
-    if(sortType != 'fitness_name') {
+    if(!(sortType == 'fitness_name' || sortType == 'reward_name')) {
       type = Number(type)
     }
     sortTypes.push(type);
   }
 
-  quickSort(0, fitnessies.length - 1, fitnessies, sortTypes);
+  quickSort(0, sortElements.length - 1, sortElements, sortTypes);
 
   // 降順の場合は並びを逆にする
   if(Number(order)) {
-    fitnessies.reverse();
+    sortElements.reverse();
   }
 
-  for(let i = 0; i < fitnessies.length; i++) {
-    fitnessCont.appendChild(fitnessies[i]);
+  for(let i = 0; i < sortElements.length; i++) {
+    indexCont.appendChild(sortElements[i]);
   }
 })
 

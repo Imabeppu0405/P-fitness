@@ -23,14 +23,14 @@ function get()
       ['その他', 'others']
     ];
 
-    $fitnes_sort_array = [
-      '新しい順' => 'fitness_created-1',
-      '古い順' => 'fitness_created-0',
-      '名前昇順' => 'fitness_name-0', 
-      '名前降順' => 'fitness_name-1',
+    $fitness_sort_array = [
+      '登録が古い順'    => 'fitness_created-0',
+      '登録が新しい順'  => 'fitness_created-1',
+      '名前昇順'       => 'fitness_name-0', 
+      '名前降順'       => 'fitness_name-1',
       'ポイントが高い順' => 'fitness_level-1',
       'ポイントが低い順' => 'fitness_level-0',
-      'カテゴリごと' => 'fitness_category-0'
+      'カテゴリごと'    => 'fitness_category-0'
     ];
 
     return View::render('home', array(
@@ -38,6 +38,6 @@ function get()
       'user'              => $user,
       'fitness_errors'    => $fitness_errors,
       'categories'        => $categories,
-      'fitnes_sort_array' => $fitnes_sort_array
+      'fitness_sort_array' => $fitness_sort_array
     ), true);
 }
