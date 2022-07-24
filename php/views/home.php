@@ -7,9 +7,16 @@
 ?>
 <div class="d-flex justify-content-center mt-5 mx-auto w-50">
   <h1 class="mx-3">フィットネス一覧</h1>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFitness">追加</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFitness">追加</button>
 </div>
-<p class="h5 text-center m-3">現在の所持金：<?php echo $user->money ?>円</p>
+<p class="h5 text-center m-3">
+  現在の所持金：<?php echo $user->money ?>円　
+  <select name="sortType" id="selectSortType">
+  <?php foreach($fitnes_sort_array as $key => $sortType) : ?>
+    <option class="sort_button" value="<?php echo $sortType ?>">並び順：<?php echo $key ?></option>
+  <?php endforeach; ?>
+  </select>
+</p>
 
 <?php if (empty($fitnesses)) : ?>
   <p class="text-center">現在フィットネスは登録されていません。</p>
@@ -64,7 +71,13 @@
 
 <div id="fitness-index-cont" class="d-flex flex-wrap justify-content-center mt-5">
 <?php foreach($fitnesses as $key => $fitness) : ?>
-  <div class="card m-2 position-relative" style="width: 18rem;">
+  <div class="card m-2 position-relative fitness" style="width: 18rem;">
+    <!-- ソート用の値 -->
+    <input type="hidden" class="fitness_level" value="<?php echo $fitness->level ?>">
+    <input type="hidden" class="fitness_name" value="<?php echo $fitness->name ?>">
+    <input type="hidden" class="fitness_created" value="<?php echo strtotime($fitness->created_at) ?>">
+    <input type="hidden" class="fitness_category" value="<?php echo $fitness->category ?>">
+
     <div class="d-flex justify-content-between m-2">
       <div class="card-img-cont <?php echo $categories[$fitness->category][1] ?>">
         <div class="card-img my-2 mx-auto">
@@ -139,7 +152,7 @@
       </div>
     </div>
 
-     <!-- 更新用モーダル -->
+     <!-- 削除用モーダル -->
      <div class="modal fade" id="deleteFitness<?php echo $key ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteFitnessLabel<?php echo $key ?>" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
