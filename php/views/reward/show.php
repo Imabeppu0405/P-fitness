@@ -11,7 +11,7 @@
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReward">追加</button>
 </div>
 <p class="h5 text-center m-3">
-  現在の所持金：<?php echo $user->money ?>円　
+<span id="displayMoney">現在の所持金：<?php echo $user->money ?>円　</span>
   <select name="sortType" id="selectSortType">
   <?php foreach($reward_sort_array as $key => $sortType) : ?>
     <option value="<?php echo $sortType ?>">並び順：<?php echo $key ?></option>
@@ -80,12 +80,9 @@
     <div class="card-body">
       <h5 class="card-title text-center border-bottom"><?php echo $reward->name ?></h5>
     </div>
-    <form action="<?php the_url('/money/subtract') ?>" method="post">
-      <input type="hidden" name="price" value="<?php echo $reward->price ?>">
-      <div class="text-center mb-3">
-        <button type="submit" class="btn btn-dark"><?php echo $reward->price ?>円</button>
-      </div>
-    </form>
+    <div class="text-center mb-3">
+      <button type="button" value="<?php echo $reward->price ?>" class="btn btn-dark subtract-button"><?php echo $reward->price ?>円</button>
+    </div>
 
     <!-- 更新用モーダル -->
     <div class="modal fade" id="updateReward<?php echo $key ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateRewardLabel<?php echo $key ?>" aria-hidden="true">

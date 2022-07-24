@@ -9,12 +9,12 @@ use RuntimeException;
 
 function post()
 {
-  $price = (int)get_param('price', null);
+  $money = (int)get_param('money', null);
   
   try {
 
     $user = Session::get('_user');
-    $is_success = UserRepository::subtractMoney($user, $price);
+    $is_success = UserRepository::subtractMoney($user, $money);
     $user = UserRepository::fetchById($user->user_id);
     Session::set('_user', $user);
 
@@ -27,13 +27,7 @@ function post()
 
   if ($is_success) {
 
-    Msg::push(Msg::INFO, '報酬を獲得しました。');
-
-  } else {
-
-    Msg::push(Msg::ERROR, '金額の更新に失敗しました。');
+    echo json_encode($user->money);
 
   }
-
-  redirect('referer');
 }

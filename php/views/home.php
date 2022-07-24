@@ -10,7 +10,7 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFitness">追加</button>
 </div>
 <p class="h5 text-center m-3">
-  現在の所持金：<?php echo $user->money ?>円　
+  <span id="displayMoney">現在の所持金：<?php echo $user->money ?>円　</span>
   <select name="sortType" id="selectSortType">
   <?php foreach($fitness_sort_array as $key => $sortType) : ?>
     <option value="<?php echo $sortType ?>">並び順：<?php echo $key ?></option>
@@ -97,13 +97,9 @@
       <h5 class="card-title h2 text-center border-bottom"><?php echo $fitness->name ?></h5>
       <p class="card-text h5 text-center <?php echo $categories[$fitness->category][1] ?>"><?php echo $fitness->level ?>p</p>
     </div>
-    <form action="<?php the_url('/money/add') ?>" method="post">
-      <input type="hidden" name="level" value="<?php echo $fitness->level ?>">
-      <div class="text-center mb-3">
-        <button type="submit" class="btn btn-dark">Complete</button>
-      </div>
-    </form>
-
+    <div class="text-center mb-3">
+      <button type="button" value="<?php echo $fitness->level ?>" class="btn btn-dark add-button">Complete</button>
+    </div>
     <!-- 更新用モーダル -->
     <div class="modal fade" id="updateFitness<?php echo $key ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateFitnessLabel<?php echo $key ?>" aria-hidden="true">
       <div class="modal-dialog">

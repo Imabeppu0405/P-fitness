@@ -88,3 +88,34 @@ function quickSort(start, end, sortArray, sortTypes) {
     quickSort(right + 1, end, sortArray, sortTypes);
   }
 }
+
+const addButtons = document.getElementsByClassName('add-button');
+const displayMoney = document.getElementById('displayMoney');
+for(let i = 0; i < addButtons.length; i++) {
+  addButtons[i].addEventListener('click', e => {
+    const level = e.target.value;
+
+    updateMoney(level, '/money/add');
+  })
+};
+
+const subtractButtons = document.getElementsByClassName('subtract-button');
+for(let i = 0; i < subtractButtons.length; i++) {
+  subtractButtons[i].addEventListener('click', e => {
+    const price = e.target.value;
+
+    updateMoney(price, '/money/subtract');
+  })
+};
+
+const updateMoney = ((money, url) => {
+  const formData = new FormData;
+  formData.append('money', money);
+  fetch(url, {
+    method: 'POST',
+    body: formData
+  }).then(response => response.json()
+  ).then(nowMoney => {
+    displayMoney.textContent = '現在の所持金：' + nowMoney + '円　';
+  })
+});
