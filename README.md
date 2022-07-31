@@ -106,46 +106,59 @@
 |表示チェック|/reward/show|なし|名前：報酬, 価格：1200|新規作成をする|登録した報酬の真ん中に報酬、下部に1200円と記載されたボタンが表示|
 
 * 環境構築
+1. Apacheをインストールして起動
+
 sudo yum install httpd -y
 sudo systemctl start httpd
 
+2. ローカルからコードをコピー
 cd /var/www
 sudo chmod 777 www 
-
 scp -r -i "PFitnessKey.pem" /Users/imabeppudaiki/Downloads/P-fitness/work ec2-user@ec2-18-179-11-247.ap-northeast-1.compute.amazonaws.com:/var/www
 
+3.不要ファイルやフォルダの削除
 cd /var/www/work
 rm .DS_Store
 rm -rf .git*
+
+4. ドキュメントルートやメソッドの許可設定
 httpd.confの記載変更
 
+5. PHPのインストール
 sudo amazon-linux-extras install php7.4
 
 
 
-php.iniの時刻変更
-
+6. php.iniの時刻設定して再起動＆表示確認
 sudo systemctl restart httpd
 
+7. mysqlのインストール
 https://qiita.com/miriwo/items/eb09c065ee9bb7e8fe06
 
-mysqlのパスワード再設定
+8. mysqlのパスワード再設定
 https://qiita.com/miriwo/items/457d6dbf02864f3bf296
 
+9. fitnessdbの作成とfitnessdb用のユーザー作成
+create database fitnessdb
 GRANT all on fitnessdb.* to 'fitnessdb'@'18.179.11.247' identified 'password';
 
+10. テーブル作成
 source /var/www/work/table_create.sql;
 
+11. mbstringが読み込まれていなかったためインストール
 yum list | grep "\-mbstring"
-
 sudo yum install php-mbstring.x86_64 
 
+12. mbstringのextension有効化
 php.ini 編集
 
+13. Apacheとphp-fpmの再起動(Apacheの再起動だけではmbstringが有効化されなかった)
 sudo systemctl restart httpd
 sudo systemctl restart php-fpm
 
-error_logに出力されない、えらー確認
+## tips
+
+- Apacheのerror_logに出力されない、えらー確認
 <?php
 ini_set("display_errors", 'On');
 error_reporting(E_ALL);
