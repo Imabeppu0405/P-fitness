@@ -104,3 +104,49 @@
 |表示チェック|/|レベルと名前には正常値入力済|カテゴリ：その他|新規作成をする|登録したFitnessの左上にハートのアイコン表示|
 |表示チェック|/|カテゴリには正常値入力済|名前：腹筋, レベル：47|新規作成をする|登録したFitnessの真ん中付近に47Pとテストいう文字列が表示|
 |表示チェック|/reward/show|なし|名前：報酬, 価格：1200|新規作成をする|登録した報酬の真ん中に報酬、下部に1200円と記載されたボタンが表示|
+
+* 環境構築
+sudo yum install httpd -y
+sudo systemctl start httpd
+
+cd /var/www
+sudo chmod 777 www 
+
+scp -r -i "PFitnessKey.pem" /Users/imabeppudaiki/Downloads/P-fitness/work ec2-user@ec2-18-179-11-247.ap-northeast-1.compute.amazonaws.com:/var/www
+
+cd /var/www/work
+rm .DS_Store
+rm -rf .git*
+httpd.confの記載変更
+
+sudo amazon-linux-extras install php7.4
+
+
+
+php.iniの時刻変更
+
+sudo systemctl restart httpd
+
+https://qiita.com/miriwo/items/eb09c065ee9bb7e8fe06
+
+mysqlのパスワード再設定
+https://qiita.com/miriwo/items/457d6dbf02864f3bf296
+
+GRANT all on fitnessdb.* to 'fitnessdb'@'18.179.11.247' identified 'password';
+
+source /var/www/work/table_create.sql;
+
+yum list | grep "\-mbstring"
+
+sudo yum install php-mbstring.x86_64 
+
+php.ini 編集
+
+sudo systemctl restart httpd
+sudo systemctl restart php-fpm
+
+error_logに出力されない、えらー確認
+<?php
+ini_set("display_errors", 'On');
+error_reporting(E_ALL);
+?>
