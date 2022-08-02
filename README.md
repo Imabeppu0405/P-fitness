@@ -100,7 +100,7 @@ sudo systemctl restart php-fpm
 ## ssh化
 1. ACMで証明書を作成する
 2. ロードバランサーを作成し、証明書を紐付ける
-3. ロードバランサーからの接続を許可するようにインスタンスのセキュリティグループを変更
+3. ロードバランサーからの接続を許可するようにインスタンスのセキュリティグループを変更  
 参考：https://qiita.com/miyuki_samitani/items/1734dc13c6b7af601bd9
 
 ## tips
