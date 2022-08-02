@@ -30,68 +30,84 @@
   - partials：ページの部品を配置
   - views：ページの見た目を配置
 
+## インスタンスの作成
+- OSイメージ:Amazon Linux
+- インスタンスタイプ：t2.micro
+- ストレージ：8GiBgp2ルートボリューム
+- セキュリティグループ：sshとhttp、httpsからの接続を許可するように設定
+
 
 ## 環境構築
-1. Apacheをインストールして起動
+1. Apacheをインストールして起動  
+sudo yum install httpd -y  
+sudo systemctl start httpd  
 
-sudo yum install httpd -y
-sudo systemctl start httpd
+2. ローカルからコードをコピー  
+cd /var/www  
+sudo chmod 777 www   
+scp -r -i "PFitnessKey.pem" /Users/imabeppudaiki/Downloads/P-fitness/work   ec2-user@ec2-18-179-11-247.ap-northeast-1.compute.amazonaws.com:/var/www
 
-2. ローカルからコードをコピー
-cd /var/www
-sudo chmod 777 www 
-scp -r -i "PFitnessKey.pem" /Users/imabeppudaiki/Downloads/P-fitness/work ec2-user@ec2-18-179-11-247.ap-northeast-1.compute.amazonaws.com:/var/www
+3. 不要ファイルやフォルダの削除  
+cd /var/www/work  
+rm .DS_Store    
+rm -rf .git*  
 
-3.不要ファイルやフォルダの削除
-cd /var/www/work
-rm .DS_Store
-rm -rf .git*
-
-4. ドキュメントルートやメソッドの許可設定
+4. ドキュメントルートやメソッドの許可設定  
 httpd.confの記載変更
 
-5. PHPのインストール
+5. PHPのインストール  
 sudo amazon-linux-extras install php7.4
 
-6. php.iniの時刻設定して再起動＆表示確認
+6. php.iniの時刻設定して再起動＆表示確認  
 sudo systemctl restart httpd
 
-7. mysqlのインストール, 起動
-sudo yum remove mariadb-*
-sudo yum localinstall https://dev.mysql.com/get/mysql80-community-release-el7-6.noarch.rpm
-sudo yum install --enablerepo=mysql80-community mysql-community-server
-sudo touch /var/log/mysqld.log
-sudo systemctl start mysqld 
+7. mysqlのインストール, 起動  
+sudo yum remove mariadb-*  
+sudo yum localinstall https://dev.mysql.com/get/   mysql80-community-release-el7-6.noarch.rpm  
+sudo yum install --enablerepo=mysql80-community mysql-community-server  
+sudo touch /var/log/mysqld.log  
+sudo systemctl start mysqld   
 参考：https://qiita.com/miriwo/items/eb09c065ee9bb7e8fe06
 
-1.  mysqlのパスワード再設定
-sudo less /var/log/mysqld.log
-ALTER USER 'root'@'localhost' identified BY '新しいrootユーザのパスワード';
-参考：https://qiita.com/miriwo/items/457d6dbf02864f3bf296
+1.  mysqlのパスワード再設定  
+sudo less /var/log/mysqld.log  
+ALTER USER 'root'@'localhost' identified BY '新しいrootユーザのパスワード';  
+参考：https://qiita.com/miriwo/items/457d6dbf02864f3bf296  
 
 1. fitnessdbの作成とfitnessdb用のユーザー作成
-create database fitnessdb
+create database fitnessdb  
 GRANT all on fitnessdb.* to 'fitnessdb'@'18.179.11.247' identified 'password';
 
-10. テーブル作成
+10. テーブル作成  
 source /var/www/work/table_create.sql;
 
-11. mbstringが読み込まれていなかったためインストール
-yum list | grep "\-mbstring"
+11. mbstringが読み込まれていなかったためインストール  
+yum list | grep "\-mbstring"  
 sudo yum install php-mbstring.x86_64 
 
-12. mbstringのextension有効化
-php.ini 編集
+12. mbstringのextension有効化  
+extension=mbstringをphp.iniに追記
 
-13. Apacheとphp-fpmの再起動(Apacheの再起動だけではmbstringが有効化されなかった)
-sudo systemctl restart httpd
+13. Apacheとphp-fpmの再起動(Apacheの再起動だけではmbstringが有効化されなかった)  
+sudo systemctl restart httpd  
 sudo systemctl restart php-fpm
 
-14. 
+## 独自ドメインを作成
+1. ドメイン名を購入(一番安いp-fitness.linkにしました)  
+2. Router53にドメイン名を登録。IPv4アドレスを持つAレコードを追加する  
+参考：https://qiita.com/ymzkjpx/items/ae115ed6d0fd2d383cec
+
+## ssh化
+1. ACMで証明書を作成する
+2. ロードバランサーを作成し、証明書を紐付ける
+3. ロードバランサーからの接続を許可するようにインスタンスのセキュリティグループを変更
+参考：https://qiita.com/miyuki_samitani/items/1734dc13c6b7af601bd9
 
 ## tips
-- Apacheのerror_logに出力されない場合のエラー確認方法
+- Apacheのerror_logに出力されない場合のエラー確認方法  
+```php
 <?php
 ini_set("display_errors", 'On');
 error_reporting(E_ALL);
 ?>
+```
