@@ -74,7 +74,7 @@ sudo less /var/log/mysqld.log
 ALTER USER 'root'@'localhost' identified BY '新しいrootユーザのパスワード';  
 参考：https://qiita.com/miriwo/items/457d6dbf02864f3bf296  
 
-1. fitnessdbの作成とfitnessdb用のユーザー作成
+1. fitnessdbの作成とfitnessdb用のユーザー作成  
 create database fitnessdb  
 GRANT all on fitnessdb.* to 'fitnessdb'@'18.179.11.247' identified 'password';
 
