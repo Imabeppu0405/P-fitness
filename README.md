@@ -31,66 +31,107 @@
   - views：ページの見た目を配置
 
 ## インスタンスの作成
-- OSイメージ:Amazon Linux
-- インスタンスタイプ：t2.micro
-- ストレージ：8GiBgp2ルートボリューム
-- セキュリティグループ：sshとhttp、httpsからの接続を許可するように設定
-
+- EC2でインスタンスの作成
+- セキュリティグループのインバウントルールはsshとhttp、httpsからの接続を許可するように設定
 
 ## 環境構築
-1. Apacheをインストールして起動  
+* Apacheをインストールして起動  
+```
 sudo yum install httpd -y  
 sudo systemctl start httpd  
+```
 
-2. ローカルからコードをコピー  
+* ローカルからコードをコピー  
+```
 cd /var/www  
 sudo chmod 777 www   
 scp -r -i "PFitnessKey.pem" /Users/imabeppudaiki/Downloads/P-fitness/work   ec2-user@ec2-18-179-11-247.ap-northeast-1.compute.amazonaws.com:/var/www
+```
 
-3. 不要ファイルやフォルダの削除  
+* 不要ファイルやフォルダの削除  
+```
 cd /var/www/work  
 rm .DS_Store    
 rm -rf .git*  
+```
 
-4. ドキュメントルートやメソッドの許可設定  
-httpd.confの記載変更
+* ドキュメントルートやメソッドの許可設定  
+```
+cd /etc/httpd/conf
+vi httpd.conf
 
-5. PHPのインストール  
+# httpd.confを下記に変更
+DocumentRoot "/var/www/work/public"
+<Directory "/var/www/work">
+    Options Indexes FollowSymLinks
+     <LimitExcept GET POST>
+       Order deny,allow
+       Deny from all
+     </LimitExcept>
+    Require all granted
+</Directory>
+```
+
+* PHPのインストール  
+```
 sudo amazon-linux-extras install php7.4
+```
 
-6. php.iniの時刻設定して再起動＆表示確認  
+* php.iniの時刻設定して再起動＆表示確認  
+```
 sudo systemctl restart httpd
+```
 
-7. mysqlのインストール, 起動  
+* mysqlのインストール, 起動  
+```
+# 初期で入っているmariadbをアンインストール
 sudo yum remove mariadb-*  
+
 sudo yum localinstall https://dev.mysql.com/get/   mysql80-community-release-el7-6.noarch.rpm  
 sudo yum install --enablerepo=mysql80-community mysql-community-server  
 sudo touch /var/log/mysqld.log  
 sudo systemctl start mysqld   
+```
 参考：https://qiita.com/miriwo/items/eb09c065ee9bb7e8fe06
 
-1.  mysqlのパスワード再設定  
+*  mysqlのパスワード再設定  
+```
+# デフォルトのrootパスワードをログで確認
 sudo less /var/log/mysqld.log  
+
+mysql -uroot -p
 ALTER USER 'root'@'localhost' identified BY '新しいrootユーザのパスワード';  
+```
 参考：https://qiita.com/miriwo/items/457d6dbf02864f3bf296  
 
-1. fitnessdbの作成とfitnessdb用のユーザー作成  
+* fitnessdbの作成とfitnessdb用のユーザー作成  
+```
+mysql -uroot -p
 create database fitnessdb  
 GRANT all on fitnessdb.* to 'fitnessdb'@'18.179.11.247' identified 'password';
+```
 
-10. テーブル作成  
+*  テーブル作成  
+```
 source /var/www/work/table_create.sql;
+```
 
-11. mbstringが読み込まれていなかったためインストール  
+*  mbstringが読み込まれていなかったためインストール  
+```
 yum list | grep "\-mbstring"  
 sudo yum install php-mbstring.x86_64 
+```
 
-12. mbstringのextension有効化  
+*  mbstringのextension有効化  
+```
 extension=mbstringをphp.iniに追記
+```
 
-13. Apacheとphp-fpmの再起動(Apacheの再起動だけではmbstringが有効化されなかった)  
+*  Apacheとphp-fpmの再起動(Apacheの再起動だけではmbstringが有効化されなかった) 
+``` 
 sudo systemctl restart httpd  
 sudo systemctl restart php-fpm
+```
 
 ## 独自ドメインを作成
 1. ドメイン名を購入(一番安いp-fitness.linkにしました)  
@@ -100,7 +141,7 @@ sudo systemctl restart php-fpm
 ## ssh化
 1. ACMで証明書を作成する
 2. ロードバランサーを作成し、証明書を紐付ける
-3. ロードバランサーからの接続を許可するようにインスタンスのセキュリティグループを変更  
+3. ロードバランサーからの接続を許可するようにインスタンスのセキュリティグループのインバウントルールを変更  
 参考：https://qiita.com/miyuki_samitani/items/1734dc13c6b7af601bd9
 
 ## tips
