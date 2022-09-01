@@ -152,3 +152,6 @@ ini_set("display_errors", 'On');
 error_reporting(E_ALL);
 ?>
 ```
+
+## AWS構成図
+![image](https://user-images.githubusercontent.com/72291454/188018863-d3718c03-bb6e-4384-9845-e846dfd1ddab.png)
